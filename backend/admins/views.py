@@ -14,5 +14,5 @@ class AdminDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AdminSerializer
 
 # Ensure this template exists
-def another_page_view(request):
-    return render(request, 'login_page.js')  
+# def another_page_view(request):
+#     return render(request, 'login_page.js')  
