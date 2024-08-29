@@ -38,7 +38,7 @@ function Nav() {
                   <Link to="/contact" className="nav-link">Contact us</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Profile" className="nav-link">My Account</Link>
+                  <Link to="/login" className="nav-link">My Account</Link>
                 </li>
               </ul>
             </div>

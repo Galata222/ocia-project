@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+from user.models import User
 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)

@@ -1,5 +1,5 @@
 from django.db import models
-# from users.models import User
+from user.models import User
 
 class Family(models.Model):
     family_id = models.AutoField(primary_key=True)
