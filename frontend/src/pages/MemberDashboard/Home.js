@@ -1,10 +1,13 @@
 import React from 'react';
-
+import Hero from '../../components/Hero';
+import Partiners from '../../components/Partiners';
+import GriefRelief from '../../components/GriefRelief';
 const Home = () => {
     return (
         <div>
-            <h1>Member Dashboard Home</h1>
-            <p>Welcome to the Member Dashboard Home page!</p>
+          <Hero/>
+          <Partiners/>
+          <GriefRelief/>
         </div>
     );
 }
