@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('risk_description', models.TextField()),
                 ('risk_date', models.DateField()),
                 ('status', models.CharField(choices=[('Submitted', 'Submitted'), ('Under Review', 'Under Review'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], max_length=20)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
             ],
         ),
     ]

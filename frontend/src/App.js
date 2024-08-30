@@ -14,6 +14,8 @@ import Nav from './components/Nav';
 import Contact from './components/Contact';
 import Register from './components/Register';
 import Login from './components/Login';
+// import Profile from "./pages/MemberDashboard/Profile";
+
 function App() {
     return (
         <Router>
@@ -35,7 +37,7 @@ function AppContent() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/submit-risk" element={<SubmitRisk />} />
-                
+                <Route path="/profile" element={<Profile />} />
                 {/* Admin Dashboard Routes */}
                 <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/manage-users" element={<ManageUsers />} />

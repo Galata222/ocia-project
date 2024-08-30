@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('transaction_date', models.DateTimeField(auto_now_add=True)),
                 ('status', models.CharField(choices=[('Pending', 'Pending'), ('Completed', 'Completed'), ('Failed', 'Failed')], max_length=20)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
             ],
         ),
     ]

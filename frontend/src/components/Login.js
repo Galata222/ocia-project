@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import api from '../axiosConfig'; // Adjust import based on your axios configuration
+import api from '../axiosConfig'; // Make sure axiosConfig is properly set up
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -18,7 +18,8 @@ const Login = () => {
             api.post('login/', { email, password }, { headers: { 'Content-Type': 'application/json' } })
                 .then((response) => {
                     console.log('Login successful:', response.data);
-                    navigate('/dashboard'); // Navigate to dashboard or any page you like
+                    localStorage.setItem('authToken', response.data.token); // Save token to localStorage
+                    navigate('/profile'); // Redirect to profile page
                 })
                 .catch((err) => {
                     setError('Error logging in: ' + (err.response && err.response.data ? err.response.data.error : 'Unexpected error'));

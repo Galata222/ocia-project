@@ -23,6 +23,7 @@ class User(models.Model):
         ('Rejected', 'Rejected')
     ])
     password = models.CharField(max_length=128)  # Add password field for storing hashed passwords
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)  # Profile picture field
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('message', models.TextField()),
                 ('notification_date', models.DateTimeField(auto_now_add=True)),
                 ('is_read', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
             ],
         ),
     ]

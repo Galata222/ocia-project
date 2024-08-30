@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('relationship', models.CharField(max_length=50)),
                 ('name', models.CharField(max_length=50)),
                 ('age', models.IntegerField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
             ],
         ),
     ]
