@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
 import MemberHome from './pages/MemberDashboard/Home';
@@ -14,7 +14,8 @@ import Nav from './components/Nav';
 import Contact from './components/Contact';
 import Register from './components/Register';
 import Login from './components/Login';
-// import Profile from "./pages/MemberDashboard/Profile";
+import FamilyList from './pages/Family/FamilyList';
+import FamilyForm from './pages/Family/FamilyForm';
 
 function App() {
     return (
@@ -25,26 +26,28 @@ function App() {
 }
 
 function AppContent() {
-    const location = useLocation();
-
     return (
         <>
-            {location.pathname !== '/profile' && <Nav />}
+            {/* <Nav /> */}
             <Routes>
                 {/* Member Dashboard Routes */}
                 <Route path="/" element={<MemberHome />} />
-                <Route path="/About" element={<About />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/submit-risk" element={<SubmitRisk />} />
                 <Route path="/profile" element={<Profile />} />
+                {/* Family Routes */}
+                <Route path="/families" element={<FamilyList />} />
+                <Route path="/families/new" element={<FamilyForm />} />
+                <Route path="/families/edit/:id" element={<FamilyForm />} />
                 {/* Admin Dashboard Routes */}
                 <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/manage-users" element={<ManageUsers />} />
                 <Route path="/admin/notifications" element={<Notifications />} />
-                <Route path="/admin/registeration" element={<Register />} />
+                <Route path="/admin/registration" element={<Register />} />
             </Routes>
-            {location.pathname !== '/profile' && <Footer />}
+            {/* <Footer /> */}
         </>
     );
 }

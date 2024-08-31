@@ -1,14 +1,5 @@
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: 'http://localhost:8000/api/',
-    withCredentials: true,  // Send cookies (CSRF token)
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken'), // Assuming you have a function to get the CSRF token
-    }
-});
-
 // Function to retrieve the CSRF token from cookies
 function getCookie(name) {
     let cookieValue = null;
@@ -24,5 +15,15 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+const api = axios.create({
+    baseURL: 'http://localhost:8000/api/',
+    withCredentials: true,  // Send cookies (CSRF token)
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'), // Corrected to ensure CSRF token retrieval
+        
+    }
+});
 
 export default api;

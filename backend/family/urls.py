@@ -1,7 +1,11 @@
-from django.urls import path
-from .views import FamilyListCreateView, FamilyDetailView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FamilyViewSet
+
+router = DefaultRouter()
+router.register(r'families', FamilyViewSet)
 
 urlpatterns = [
-    path('family/', FamilyListCreateView.as_view(), name='family-list-create'),
-    path('family/<int:pk>/', FamilyDetailView.as_view(), name='family-detail'),
+    path('', include(router.urls)),
+    
 ]
