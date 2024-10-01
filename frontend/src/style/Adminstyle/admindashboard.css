@@ -1,0 +1,167 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "poppins", 'sans-serif';
+}
+
+.body {
+    display: flex;
+    background: #a8a6a6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 230px;
+    height: 100vh;
+    padding: 0.17rem;
+    color: #fff;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background: #3d239b;
+    /* background-color: rgba(137, 137, 137, 255); */
+}
+
+.logo {
+    height: 40px;
+    padding: 16px;
+}
+
+.menu {
+    height: 90%;
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+}
+
+.menu li {
+    padding: .6rem;
+    margin: 8px;
+    border-radius: 3px;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu li:hover, .active {
+    background-color: #e0e0e058;
+}
+
+.menu a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.menu a span {
+    overflow: hidden;
+}
+
+.menu a li {
+    font-size: 1.2rem;
+}
+
+.logout {
+    position: absolute;
+    margin-top: 10px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    position: relative;
+    background: rgb(241, 239, 239);
+    padding: 1rem;
+    width: 150%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header-wrapper img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+
+.header-title {
+    color: rgba(113, 99, 186, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-box {
+    background-color: rgb(237, 237, 237);
+    border-radius: 15px;
+    color: rgba(113, 99, 186, 255);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 4px 12px;
+}
+
+.search-box input {
+    background: transparent;
+    padding: 10px;
+}
+
+.search-box i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.search-box i:hover {
+    transform: scale(1.2);
+}
+
+/* Dark Mode Styles */
+.body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.body.dark-mode .sidebar {
+    background-color: #1e1e1e;
+}
+
+.body.dark-mode .sidebar .menu li:hover,
+.body.dark-mode .sidebar .menu .active {
+    background-color: #333;
+}
+
+.body.dark-mode .main-content {
+    background-color: #1e1e1ec0;
+    color: #e0e0e0;
+}
+
+/* Fullscreen Styles */
+.body.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}

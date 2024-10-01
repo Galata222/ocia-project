@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes,useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
 import MemberHome from './pages/MemberDashboard/Home';
@@ -16,6 +16,10 @@ import Register from './components/Register';
 import Login from './components/Login';
 import FamilyList from './pages/Family/FamilyList';
 import FamilyForm from './pages/Family/FamilyForm';
+import ProfileHome from './Profilecomponents/ProfileHome'
+import SubmittedRisk from './AdminComponents/SubmittedRisk';
+import History from './AdminComponents/History';
+import Reports from './AdminComponents/Reports';
 
 function App() {
     return (
@@ -26,28 +30,39 @@ function App() {
 }
 
 function AppContent() {
+    const location = useLocation();
+    const showNavAndFooter = ['/', '/About', '/contact', '/Service', '/login'].includes(location.pathname);
+
     return (
         <>
-            {/* <Nav /> */}
+            {showNavAndFooter && <Nav />}
             <Routes>
                 {/* Member Dashboard Routes */}
                 <Route path="/" element={<MemberHome />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/submit-risk" element={<SubmitRisk />} />
-                <Route path="/profile" element={<Profile />} />
-                {/* Family Routes */}
-                <Route path="/families" element={<FamilyList />} />
-                <Route path="/families/new" element={<FamilyForm />} />
-                <Route path="/families/edit/:id" element={<FamilyForm />} />
+
+                {/* Profile Routes */}
+                <Route path="/ProfileHome" element={<ProfileHome />}>
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="submit-risk" element={<SubmitRisk />} />
+                    <Route path="families" element={<FamilyList />} />
+                    <Route path="families/new" element={<FamilyForm />} />
+                    <Route path="families/edit/:id" element={<FamilyForm />} />
+                </Route>
+
                 {/* Admin Dashboard Routes */}
-                <Route path="/admin" element={<AdminHome />} />
-                <Route path="/admin/manage-users" element={<ManageUsers />} />
-                <Route path="/admin/notifications" element={<Notifications />} />
-                <Route path="/admin/registration" element={<Register />} />
+                <Route path="/admin" element={<AdminHome />}>
+                    <Route path="manage-users" element={<ManageUsers />} />
+                    <Route path="notifications" element={<Notifications />} />
+                    <Route path="registration" element={<Register />} />
+                    <Route path="submitted-risk" element={<SubmittedRisk />} />
+                    <Route path="history" element={<History />} />
+                    <Route path="reports" element={<Reports />} />
+                </Route>
             </Routes>
-            {/* <Footer /> */}
+            {showNavAndFooter && <Footer />}
         </>
     );
 }

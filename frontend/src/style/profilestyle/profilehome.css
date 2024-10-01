@@ -1,0 +1,203 @@
+/* Base styles */
+.profilehome-container {
+    display: flex;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background: #3d239b;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Ensure sidebar height is 100vh */
+    box-sizing: border-box; /* Include padding in height calculation */
+    transition: all 0.3s ease;
+}
+
+.sidebar.dark-mode {
+    background: #1e1e1e; /* Darker sidebar background */
+    color: #ffffff; /* Light text color */
+}
+
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Profile avatar styles */
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #ffffff;
+}
+
+.profile-avatar .username {
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+
+/* Menu styles */
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu li a.active,
+.menu li a:hover {
+    color: #3f51b5;
+    background-color: #f7f1f1e3; /* Slightly more transparent */
+}
+
+.menu li a i {
+    margin-right: 10px;
+}
+
+/* Main content styles */
+.main-content {
+    flex: 1;
+    margin-left: 250px; /* Make space for the sidebar */
+    padding: 20px;
+    transition: margin-left 0.3s ease, background-color 0.3s, color 0.3s;
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+}
+
+.main-content.dark-mode {
+    background-color: #121212; /* Dark background for main content */
+    color: #ffffff; /* Light text color */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212; /* Dark background for the whole body */
+    color: #e0e0e0; /* Light text color */
+}
+
+body.dark-mode .sidebar {
+    background-color: #1e1e1e; /* Darker sidebar background */
+    color: #e0e0e0; /* Light text color in sidebar */
+}
+
+body.dark-mode .sidebar .menu li a {
+    color: #e0e0e0; /* Light text color for menu links */
+}
+
+body.dark-mode .sidebar .menu li a.active,
+body.dark-mode .sidebar .menu li a:hover {
+    background-color: #333; /* Darker background on hover/active */
+}
+
+body.dark-mode .main-content {
+    background-color: #121212; /* Dark background for main content */
+    color: #e0e0e0; /* Light text color in main content */
+}
+
+/* Fullscreen Styles */
+body.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.profilehome-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.username {
+    align-self: center;
+}
+
+/* Header styles */
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    align-self: baseline;
+}
+
+.header-title {
+    color: #343a40;
+}
+
+.header-title h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.profile-info {
+    display: flex;
+}
+
+.header-title span {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* Action buttons */
+.action-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+/* Content styles */
+.profilehome-content {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+/* Footer styles */
+.profilehome-footer {
+    text-align: center;
+    color: #6c757d;
+}
