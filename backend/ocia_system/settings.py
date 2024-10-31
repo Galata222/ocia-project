@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     'transactions',
     'admins',
     'rest_framework',
+    'corsheaders',
+    'rest_framework.authtoken',
 ]
-INSTALLED_APPS += ['corsheaders']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

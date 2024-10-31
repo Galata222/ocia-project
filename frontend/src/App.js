@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import MemberHome from './pages/MemberDashboard/Home';
 import Profile from './pages/MemberDashboard/Profile';
 import SubmitRisk from './pages/MemberDashboard/SubmitRisk';
+import UpdateRisk from './pages/MemberDashboard/UpdateRisk';
+import ViewRisk from './pages/MemberDashboard/ViewRisk'; 
+import RiskList from './pages/MemberDashboard/RiskList'; 
 import AdminHome from './pages/AdminDashboard/Home';
 import ManageUsers from './pages/AdminDashboard/ManageUsers';
 import Notifications from './pages/AdminDashboard/Notifications';
@@ -47,6 +50,9 @@ function AppContent() {
                 <Route path="/ProfileHome" element={<ProfileHome />}>
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
+                    <Route path="risks/edit/:id" element={<UpdateRisk />} />
+                    <Route path="risks"  element={<RiskList />} />
+                    <Route path="risks/:id"  element={<ViewRisk />} />
                     <Route path="families" element={<FamilyList />} />
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />

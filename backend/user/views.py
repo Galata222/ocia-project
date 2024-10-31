@@ -2,18 +2,21 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
-from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from .models import User
+from django.contrib.auth.hashers import check_password
 from .serializers import UserSerializer, LoginSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
 
 class UserRegistrationView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -23,6 +26,8 @@ class UserRegistrationView(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
+    permission_classes = [permissions.AllowAny] # Allow unauthenticated access
+
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import api from '../axiosConfig'; // Make sure axiosConfig is properly set up
+import api from '../axiosConfig';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -19,10 +19,12 @@ const Login = () => {
                 .then((response) => {
                     console.log('Login successful:', response.data);
                     localStorage.setItem('authToken', response.data.token); // Save token to localStorage
-                    navigate('/profile'); // Redirect to profile page
+                    navigate('/admin'); // Redirect to profile page
                 })
                 .catch((err) => {
-                    setError('Error logging in: ' + (err.response && err.response.data ? err.response.data.error : 'Unexpected error'));
+                    // Update error handling to check for the actual response structure
+                    const errorMessage = err.response?.data?.error || 'Unexpected error occurred';
+                    setError(`Error logging in: ${errorMessage}`);
                 });
         }
     };
