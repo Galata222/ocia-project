@@ -25,6 +25,8 @@ import History from './AdminComponents/History';
 import Reports from './AdminComponents/Reports';
 import ForgotPassword from './components/ForgotPassword';
 import TermsAndConditions from './components/TermsAndConditions';
+import Notification from './components/Notification';
+import HistoryUser from './components/HistoryUser';
 function App() {
     return (
         <Router>
@@ -35,7 +37,7 @@ function App() {
 
 function AppContent() {
     const location = useLocation();
-    const showNavAndFooter = ['/', '/About', '/contact','/terms','/ForgotPassword','/Service', '/login'].includes(location.pathname);
+    const showNavAndFooter = ['/', '/About', '/contact','/terms', '/notifications','/ForgotPassword','/Service', '/login'].includes(location.pathname);
 
     return (
         <>
@@ -60,6 +62,8 @@ function AppContent() {
                     <Route path="families" element={<FamilyList />} />
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />
+                    <Route path="notifications" element={<Notification/>} />
+                    <Route path="history" element={<HistoryUser/>} />
                 </Route>
 
                 {/* Admin Dashboard Routes */}
