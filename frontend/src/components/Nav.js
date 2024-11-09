@@ -10,7 +10,7 @@ function Nav() {
           <div className="container">
             <Link to="/" className="logo">
               <i className="ion-social-buffer" />
-              <span>OCIA</span>
+              <span>OC<span>i</span>A</span>
             </Link>
             <button
               className="navbar-toggler"

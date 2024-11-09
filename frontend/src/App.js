@@ -23,7 +23,8 @@ import ProfileHome from './Profilecomponents/ProfileHome'
 import SubmittedRisk from './AdminComponents/SubmittedRisk';
 import History from './AdminComponents/History';
 import Reports from './AdminComponents/Reports';
-
+import ForgotPassword from './components/ForgotPassword';
+import TermsAndConditions from './components/TermsAndConditions';
 function App() {
     return (
         <Router>
@@ -34,7 +35,7 @@ function App() {
 
 function AppContent() {
     const location = useLocation();
-    const showNavAndFooter = ['/', '/About', '/contact', '/Service', '/login'].includes(location.pathname);
+    const showNavAndFooter = ['/', '/About', '/contact','/terms','/ForgotPassword','/Service', '/login'].includes(location.pathname);
 
     return (
         <>
@@ -45,6 +46,9 @@ function AppContent() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/terms" element={<TermsAndConditions />} />
+               
+                <Route path="/ForgotPassword" element={<ForgotPassword />} />
 
                 {/* Profile Routes */}
                 <Route path="/ProfileHome" element={<ProfileHome />}>

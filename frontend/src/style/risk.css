@@ -1,0 +1,58 @@
+.risk__container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.risk__title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.risk__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.risk__label {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.risk__input,
+.risk__textarea,
+.risk__select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; /* Make inputs and select full width */
+}
+
+.risk__input:focus,
+.risk__textarea:focus,
+.risk__select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.risk__button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.risk__button:hover {
+    background-color: #0056b3;
+}

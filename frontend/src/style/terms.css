@@ -1,0 +1,71 @@
+/* Container for the Terms and Conditions */
+.terms-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .terms-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .terms-intro {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .terms-content {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+  
+  .terms-paragraph {
+    margin-bottom: 20px;
+  }
+  
+  .terms-acknowledgment {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+    font-style: italic;
+  }
+  
+  .terms-acknowledgment a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .terms-acknowledgment a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .terms-container {
+      padding: 15px;
+    }
+  
+    .terms-title {
+      font-size: 1.8rem;
+    }
+  
+    .terms-intro,
+    .terms-content,
+    .terms-acknowledgment {
+      font-size: 1rem;
+    }
+  }
+  

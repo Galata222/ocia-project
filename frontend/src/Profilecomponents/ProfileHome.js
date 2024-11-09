@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/profilestyle/profilehome.css';
 import { Outlet } from 'react-router-dom';
-import { FaMoon, FaRegMoon, FaExpand, FaCompress } from 'react-icons/fa'; // Import icons
+import { FaMoon, FaRegMoon, FaExpand, FaCompress } from 'react-icons/fa'; 
 import profilePic from '../Images/founder/profile2.jpg'; 
 
 function ProfileHome() {
@@ -66,19 +66,15 @@ function ProfileHome() {
         </ul>
       </div>
 
-      <div className='main-content'>
-
+      <div className={`main-content ${darkMode ? 'dark-mode' : ''}`}>
         <div className='header-wrapper'>
-
           <div className='header-title'>
             <span>Profile</span>
             <h2>Home</h2>
           </div>
 
           <div className='header-actions'>
-
             <div className='actions'>
-
               <button onClick={toggleDarkMode} className='action-btn'>
                 {darkMode ? <FaMoon /> : <FaRegMoon />}
               </button>
@@ -86,22 +82,19 @@ function ProfileHome() {
                 {fullscreen ? <FaCompress /> : <FaExpand />}
               </button>
             </div>
-            
+
             <div className='profile-info'>
               <img src={profilePic} alt='Profile Avatar' className='profile-pic' />
               <div className='username'>Galata</div>
             </div>
-
-          </div>
-          </div>
-
-          {/* Conditionally render other components or content here */}
-          <div className='conditional-render'>
-           <Outlet/>
           </div>
         </div>
+
+        <div className='conditional-render'>
+          <Outlet />
+        </div>
       </div>
-    
+    </div>
   );
 }
 

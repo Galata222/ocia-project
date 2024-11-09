@@ -1,4 +1,20 @@
-/* Base styles */
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Poppins", 'sans-serif';
+}
+
+.body {
+    display: flex;
+    background: #a8a6a6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Profile Home Container */
 .profilehome-container {
     display: flex;
     min-height: 100vh;
@@ -6,7 +22,7 @@
     position: relative;
 }
 
-/* Sidebar styles */
+/* Sidebar Styles */
 .sidebar {
     width: 250px;
     background: #3d239b;
@@ -15,8 +31,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Ensure sidebar height is 100vh */
-    box-sizing: border-box; /* Include padding in height calculation */
+    height: 100vh; 
+    box-sizing: border-box; 
     transition: all 0.3s ease;
 }
 
@@ -32,7 +48,7 @@
     margin-bottom: 20px;
 }
 
-/* Profile avatar styles */
+/* Profile Avatar Styles */
 .profile-avatar {
     display: flex;
     align-items: center;
@@ -52,7 +68,7 @@
     color: #ffffff;
 }
 
-/* Menu styles */
+/* Menu Styles */
 .menu {
     list-style: none;
     padding: 0;
@@ -83,7 +99,7 @@
     margin-right: 10px;
 }
 
-/* Main content styles */
+/* Main Content Styles */
 .main-content {
     flex: 1;
     margin-left: 250px; /* Make space for the sidebar */
@@ -97,29 +113,24 @@
     color: #ffffff; /* Light text color */
 }
 
-/* Dark mode styles */
-body.dark-mode {
-    background-color: #121212; /* Dark background for the whole body */
-    color: #e0e0e0; /* Light text color */
+/* Dark Mode Styles */
+.body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
-body.dark-mode .sidebar {
-    background-color: #1e1e1e; /* Darker sidebar background */
-    color: #e0e0e0; /* Light text color in sidebar */
+.body.dark-mode .sidebar {
+    background-color: #1e1e1e;
 }
 
-body.dark-mode .sidebar .menu li a {
-    color: #e0e0e0; /* Light text color for menu links */
+.body.dark-mode .sidebar .menu li:hover,
+.body.dark-mode .sidebar .menu .active {
+    background-color: #333;
 }
 
-body.dark-mode .sidebar .menu li a.active,
-body.dark-mode .sidebar .menu li a:hover {
-    background-color: #333; /* Darker background on hover/active */
-}
-
-body.dark-mode .main-content {
-    background-color: #121212; /* Dark background for main content */
-    color: #e0e0e0; /* Light text color in main content */
+.body.dark-mode .main-content {
+    background-color: #1e1e1ec0;
+    color: #e0e0e0;
 }
 
 /* Fullscreen Styles */
@@ -138,17 +149,12 @@ body.fullscreen {
     z-index: 9999;
 }
 
-.username {
-    align-self: center;
-}
-
-/* Header styles */
+/* Header Styles */
 .header-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    align-self: baseline;
 }
 
 .header-title {
@@ -180,7 +186,7 @@ body.fullscreen {
     flex-direction: row-reverse;
 }
 
-/* Action buttons */
+/* Action Buttons */
 .action-btn {
     background: none;
     border: none;
@@ -190,13 +196,13 @@ body.fullscreen {
     margin: 0 5px;
 }
 
-/* Content styles */
+/* Content Styles */
 .profilehome-content {
     font-size: 1.25rem;
     margin-bottom: 20px;
 }
 
-/* Footer styles */
+/* Footer Styles */
 .profilehome-footer {
     text-align: center;
     color: #6c757d;

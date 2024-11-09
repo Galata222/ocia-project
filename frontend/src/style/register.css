@@ -1,0 +1,118 @@
+.register__container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.register__title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+}
+.register__label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.register__input,
+.register__select,
+.register__phone-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.register__input:focus,
+.register__select:focus,
+.register__gender,
+.register__phone-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.register__button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register__button:hover {
+    background-color: #0056b3;
+}
+.register__gender {
+    margin-bottom: 15px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px; 
+  
+}
+
+.register__gender label {
+    display: inline-block;
+    margin: 5px 0;
+    margin-left: 5px;
+    cursor: pointer; 
+}
+.bank-details {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 15px; 
+}
+
+.bank-account, .routing-number {
+    flex: 1; 
+    margin-right: 10px; 
+}
+
+.routing-number {
+    margin-right: 0;
+}
+.register__message,
+.register__error {
+    text-align: center;
+    margin-top: 10px;
+    color: #28a745;
+}
+/* Add necessary CSS for the consent section */
+.register__consent-link {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.register__consent-textbox {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.register__consent-checkbox {
+    margin-top: 10px;
+}
+
+.register__consent-text {
+    margin-left: 5px;
+}
+
+
+.register__error {
+    color: #dc3545;
+}
