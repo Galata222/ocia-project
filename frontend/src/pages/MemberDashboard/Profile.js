@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import api from '../../axiosConfig'; // Adjust the path as necessary
-
+import api from '../../axiosConfig';
+const mediaUrl = 'http://localhost:8000';
 const Profile = () => {
     const [userData, setUserData] = useState({
         first_name: '',
@@ -24,36 +24,33 @@ const Profile = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
-    // Fetch user data when the component loads
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('accessToken');
         if (token) {
             api.get('/profile/', {
-                headers: { 
-                    Authorization: `Bearer ${token}`
-                }
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then((response) => {
                 setUserData(response.data);
+                // Set the profile picture preview, if available
                 if (response.data.profile_picture) {
-                    setProfilePicturePreview(response.data.profile_picture);
+                    setProfilePicturePreview(`${mediaUrl}${response.data.profile_picture}`);
                 }
             })
-            .catch((err) => {
-                setError('Failed to load user data.');
-            });
+            .catch(() => setError('Failed to load user data.'));
         }
     }, []);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === 'profile_picture') {
-            setUserData({
-                ...userData,
-                profile_picture: files[0]
-            });
-            // Create a preview URL for the selected profile picture
-            setProfilePicturePreview(URL.createObjectURL(files[0]));
+            if (files.length > 0) {
+                setUserData({
+                    ...userData,
+                    profile_picture: files[0] // Store the file object directly
+                });
+                setProfilePicturePreview(URL.createObjectURL(files[0])); // Preview the new image
+            }
         } else {
             setUserData({
                 ...userData,
@@ -65,17 +62,20 @@ const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        for (const key in userData) {
-            if (userData[key] !== null) { // Avoid appending null values
-                formData.append(key, userData[key]);
+        Object.entries(userData).forEach(([key, value]) => {
+            if (value) {
+                if (key === 'profile_picture' && value instanceof File) {
+                    formData.append(key, value); // Append the file directly
+                } else if (key !== 'profile_picture') {
+                    formData.append(key, value);
+                }
             }
-        }
-        const token = localStorage.getItem('authToken');
+        });
+        const token = localStorage.getItem('accessToken');
         if (token) {
             api.put('/profile/', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}` // Just include the Authorization header
                 }
             })
             .then(() => {
@@ -84,28 +84,6 @@ const Profile = () => {
             })
             .catch(() => {
                 setError('Error updating profile.');
-                setMessage('');
-            });
-        }
-    };
-
-    const handleDelete = () => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            api.delete('/profile/', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then(() => {
-                setMessage('Account deleted successfully!');
-                setError('');
-                // Optionally redirect user or clear localStorage
-                localStorage.removeItem('authToken');
-                window.location.href = '/login'; // Redirect to login or home page
-            })
-            .catch(() => {
-                setError('Error deleting account.');
                 setMessage('');
             });
         }
@@ -135,6 +113,11 @@ const Profile = () => {
                             />
                         </div>
                     )}
+                    {userData.profile_picture && !profilePicturePreview && (
+                        <div className="mt-2">
+                            <p>Current Profile Picture: {userData.profile_picture.split('/').pop()}</p>
+                        </div>
+                    )}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="first_name" className="form-label">First Name</label>
@@ -161,7 +144,7 @@ const Profile = () => {
                 <div className="mb-3">
                     <label htmlFor="age" className="form-label">Age</label>
                     <input
-                        type="text"
+                        type="number"
                         name="age"
                         value={userData.age}
                         onChange={handleChange}
@@ -171,19 +154,33 @@ const Profile = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="gender" className="form-label">Gender</label>
-                    <input
-                        type="text"
+                    <select
                         name="gender"
                         value={userData.gender}
                         onChange={handleChange}
                         className="form-control"
-                        placeholder="Gender"
+                    >
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder="Email"
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="phone" className="form-label">Phone</label>
                     <input
-                        type="text"
+                        type="tel"
                         name="phone"
                         value={userData.phone}
                         onChange={handleChange}
@@ -227,7 +224,7 @@ const Profile = () => {
                 <div className="mb-3">
                     <label htmlFor="monthly_income" className="form-label">Monthly Income</label>
                     <input
-                        type="text"
+                        type="number"
                         name="monthly_income"
                         value={userData.monthly_income}
                         onChange={handleChange}
@@ -269,7 +266,6 @@ const Profile = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Update Profile</button>
-                <button type="button" onClick={handleDelete} className="btn btn-danger ms-2">Delete Account</button>
             </form>
         </div>
     );

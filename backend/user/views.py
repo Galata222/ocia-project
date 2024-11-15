@@ -1,66 +1,79 @@
-from rest_framework import viewsets, status, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from .models import User
-from django.contrib.auth.hashers import check_password
-from .serializers import UserSerializer, LoginSerializer
+from .serializers import RegisterSerializer, LoginSerializer
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from .serializers import UserSerializer  
+from django.core.mail import send_mail
 
-class UserViewSet(viewsets.ModelViewSet):
+class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+    serializer_class = RegisterSerializer
 
-class UserRegistrationView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
+    
+
+class LoginView(generics.GenericAPIView):
     permission_classes = [permissions.AllowAny]
+    serializer_class = LoginSerializer
 
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@method_decorator(csrf_exempt, name='dispatch')
-class LoginView(APIView):
-    permission_classes = [permissions.AllowAny] # Allow unauthenticated access
-
-    def post(self, request):
-        email = request.data.get('email')
-        password = request.data.get('password')
-
-        if not email or not password:
-            return Response({"error": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
-
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        password = serializer.validated_data['password']
+        
         try:
             user = User.objects.get(email=email)
-            if check_password(password, user.password):
-                return Response({"message": "Login successful", "user": {"first_name": user.first_name, "last_name": user.last_name}}, status=status.HTTP_200_OK)
-            else:
-                return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+            if not user.check_password(password):
+                return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user_id': user.user_id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'profile_picture': user.profile_picture.url if user.profile_picture else None,
+                'role': user.role  # Include the user's role in the response
+            })
         except User.DoesNotExist:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class UserProfileView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = get_object_or_404(User, email=request.user.email)
-        serializer = UserSerializer(user)
+        serializer = RegisterSerializer(user)
         return Response(serializer.data)
 
     def put(self, request):
         user = get_object_or_404(User, email=request.user.email)
-        serializer = UserSerializer(user, data=request.data, partial=True)
+        serializer = RegisterSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    permission_classes = [permissions.IsAuthenticated]  # Ensure only authenticated users can access
+    serializer_class = UserSerializer
 
-    def delete(self, request):
-        user = get_object_or_404(User, email=request.user.email)
-        user.delete()
-        return Response({"message": "Account deleted successfully"}, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        # Filter users by role 'user'
+        return self.queryset.filter(role='user')

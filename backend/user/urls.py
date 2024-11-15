@@ -1,13 +1,9 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, UserRegistrationView, LoginView, UserProfileView
-
-router = DefaultRouter()
-router.register(r'users', UserViewSet)
+from django.urls import path
+from .views import RegisterView, LoginView, UserProfileView, UserListView  # Import the new view
 
 urlpatterns = [
-    path('register/', UserRegistrationView.as_view(), name='user-registration'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
-    path('profile/', UserProfileView.as_view(), name='profile'),
-    path('', include(router.urls)),
+    path('profile/', UserProfileView.as_view(), name='profile'),  # New profile endpoint
+    path('users/', UserListView.as_view(), name='user-list'),  # New endpoint for listing users
 ]

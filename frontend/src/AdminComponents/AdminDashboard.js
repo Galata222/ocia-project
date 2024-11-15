@@ -1,12 +1,46 @@
-import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import ".././style/Adminstyle/admindashboard.css";
-import headerpro from "../Images/founder/profile.jpg";
+import React, { useState, useEffect } from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import "../style/Adminstyle/admindashboard.css";
 import { FaMoon, FaRegMoon, FaExpand, FaCompress } from 'react-icons/fa'; // Import icons
+
+const mediaUrl = 'http://localhost:8000'; // Adjust the base URL if necessary
 
 function AdminDashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
+  const [user, setUser] = useState(null); // State to store user info
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Function to fetch user data from localStorage
+    const fetchUserData = () => {
+      const userData = {
+        first_name: localStorage.getItem('first_name'),
+        last_name: localStorage.getItem('last_name'),
+        profile_picture: localStorage.getItem('profile_picture'),
+      };
+
+      if (userData.first_name && userData.last_name) {
+        setUser(userData); // Set user data into state
+      } else {
+        // Redirect to login page if no user data found
+        navigate('/login');
+      }
+    };
+
+    fetchUserData();
+
+    // Event listener to handle updates from profile updates
+    const handleStorageChange = () => {
+      fetchUserData();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [navigate]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -21,9 +55,21 @@ function AdminDashboard() {
     }
   };
 
+  const handleLogout = () => {
+    // Remove the token or authentication data
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('first_name');
+    localStorage.removeItem('last_name');
+    localStorage.removeItem('profile_picture');
+    localStorage.removeItem('role');
+    // Navigate to the login page
+    navigate('/login');
+  };
+
   return (
     <div className={`body ${darkMode ? 'dark-mode' : ''} ${fullscreen ? 'fullscreen' : ''}`}>
-      <div className='sidebar'>
+      <div className={`sidebar ${darkMode ? 'dark-mode' : ''}`}>
         <div className='logo'>
           <h2>OCIA</h2>
         </div>
@@ -31,11 +77,6 @@ function AdminDashboard() {
           <li>
             <Link to='/admin' className='active'>
               <i className='fas fa-tachometer-alt' /> <span>Dashboard</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/manage-users'>
-              <i className='fas fa-users' /> <span>Manage Users</span>
             </Link>
           </li>
           <li>
@@ -58,11 +99,15 @@ function AdminDashboard() {
               <i className='fas fa-chart-line' /> <span>Reports</span>
             </Link>
           </li>
-        
+          <li>
+            <a href='/admin/profile'>
+              <i className='fas fa-user-plus' /> <span>Update Profile</span>
+            </a>
+          </li>
           <li className='logout'>
-            <Link to='/admin'>
+            <button onClick={handleLogout} className='logout-btn'>
               <i className='fas fa-sign-out-alt' /> <span>Log out</span>
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
@@ -74,12 +119,7 @@ function AdminDashboard() {
             <h2>Dashboard</h2>
           </div>
 
-          <div className='user-info'>
-            <div className='search-box'>
-              <i className='fas fa-search'></i>
-              <input type='text' placeholder='search' />
-            </div>
-            <img src={headerpro} alt='adminimage'/>
+          <div className='header-actions'>
             <div className='actions'>
               <button onClick={toggleDarkMode} className='action-btn'>
                 {darkMode ? <FaMoon /> : <FaRegMoon />}
@@ -87,6 +127,17 @@ function AdminDashboard() {
               <button onClick={toggleFullscreen} className='action-btn'>
                 {fullscreen ? <FaCompress /> : <FaExpand />}
               </button>
+            </div>
+
+            <div className='profile-info'>
+              <img 
+                src={user?.profile_picture ? `${mediaUrl}${user.profile_picture}` : 'default_profile_picture.jpg'}  
+                alt='Profile Avatar' 
+                className='profile-pic' 
+              />
+              <div className='username'>
+                {user ? `${user.first_name} ${user.last_name}` : 'Guest'}
+              </div>
             </div>
           </div>
         </div>
@@ -100,4 +151,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-

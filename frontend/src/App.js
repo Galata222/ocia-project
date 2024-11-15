@@ -23,6 +23,7 @@ import ProfileHome from './Profilecomponents/ProfileHome'
 import SubmittedRisk from './AdminComponents/SubmittedRisk';
 import History from './AdminComponents/History';
 import Reports from './AdminComponents/Reports';
+import LoginComponent from './components/LoginComponent';
 
 function App() {
     return (
@@ -45,8 +46,10 @@ function AppContent() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/logini" element={<LoginComponent/>} />
 
                 {/* Profile Routes */}
+                
                 <Route path="/ProfileHome" element={<ProfileHome />}>
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
@@ -57,7 +60,7 @@ function AppContent() {
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />
                 </Route>
-
+                
                 {/* Admin Dashboard Routes */}
                 <Route path="/admin" element={<AdminHome />}>
                     <Route path="manage-users" element={<ManageUsers />} />
@@ -66,6 +69,7 @@ function AppContent() {
                     <Route path="submitted-risk" element={<SubmittedRisk />} />
                     <Route path="history" element={<History />} />
                     <Route path="reports" element={<Reports />} />
+                    <Route path="profile" element={<Profile />} />
                 </Route>
             </Routes>
             {showNavAndFooter && <Footer />}

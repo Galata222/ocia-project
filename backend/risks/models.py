@@ -1,5 +1,7 @@
 from django.db import models
-from user.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Risk(models.Model):
     risk_id = models.AutoField(primary_key=True)

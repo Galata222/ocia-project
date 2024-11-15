@@ -1,41 +1,57 @@
-from rest_framework import viewsets, permissions
+# family/views.py
+
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
 from .models import Family
 from .serializers import FamilySerializer
-from rest_framework.response import Response
-from rest_framework import status
-
-class FamilyViewSet(viewsets.ModelViewSet):
-    queryset = Family.objects.all()
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+class FamilyListView(generics.ListAPIView):
+    """Retrieve a list of family members for the authenticated user."""
     serializer_class = FamilySerializer
-    permission_classes = [permissions.IsAuthenticated]  # Ensure the user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication, TokenAuthentication, BasicAuthentication]
 
     def get_queryset(self):
-        # Override to return only family members for the logged-in user
-        user = self.request.user
-        return Family.objects.filter(user=user)
+        print("userrr", self.request.user)
+        return Family.objects.filter(user=self.request.user)  # Filter by user
+
+class FamilyCreateView(generics.CreateAPIView):
+    """Create a new family member for the authenticated user."""
+    serializer_class = FamilySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication, TokenAuthentication, BasicAuthentication]
 
     def perform_create(self, serializer):
-        # Set the user to the currently authenticated user
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user)  # Associate the user with the new family member
 
-    def create(self, request, *args, **kwargs):
-        # Handle custom creation logic with authentication
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+class FamilyRetrieveView(generics.RetrieveAPIView):
+    """Retrieve a specific family member for the authenticated user."""
+    serializer_class = FamilySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
-    def update(self, request, *args, **kwargs):
-        # Ensure that the user can only update their own family member
-        instance = self.get_object()
-        if instance.user != request.user:
-            return Response({"error": "You do not have permission to update this family member."}, status=status.HTTP_403_FORBIDDEN)
-        return super().update(request, *args, **kwargs)
+    def get_queryset(self):
+        return Family.objects.filter(user=self.request.user)  # Filter by user
+
+class FamilyUpdateView(generics.UpdateAPIView):
+    """Update an existing family member for the authenticated user."""
+    serializer_class = FamilySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get_queryset(self):
+        return Family.objects.filter(user=self.request.user)  # Filter by user
+
+class FamilyDestroyView(generics.DestroyAPIView):
+    """Delete a family member for the authenticated user."""
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get_queryset(self):
+        return Family.objects.filter(user=self.request.user)  # Filter by user
 
     def destroy(self, request, *args, **kwargs):
-        # Ensure that the user can only delete their own family member
-        instance = self.get_object()
-        if instance.user != request.user:
-            return Response({"error": "You do not have permission to delete this family member."}, status=status.HTTP_403_FORBIDDEN)
-        return super().destroy(request, *args, **kwargs)
+        family_member = self.get_object()
+        self.perform_destroy(family_member)
+        return Response(status=status.HTTP_204_NO_CONTENT)
