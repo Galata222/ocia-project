@@ -2,10 +2,11 @@ import React from 'react'
 import "../style/styles.css"
 import "../style/animate.css"
 import "../style/mklib.css"
+import "../style/customblue.css"
 function Hero() {
   return (
     <div>
-  <section className="hero bg-custom-dark">
+  <section className="hero custom-blue">
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-9 text-center">

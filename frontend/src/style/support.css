@@ -1,0 +1,26 @@
+.support-container {
+    position: relative;
+    display: inline-block;
+}
+
+.options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.options a {
+    margin: 5px 0;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}

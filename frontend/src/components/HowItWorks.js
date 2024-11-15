@@ -7,9 +7,9 @@ const HowItWorks = () => {
         { title: "Step 2", description: "Ask for joining." },
         { title: "Step 3", description: "Fill the form." },
         { title: "Step 4", description: "Got Accepted as a member." },
-        { title: "Step 5", description: "Access resources and support." },
+        { title: "Step 5", description: " Stay engaged and informed." },
         { title: "Step 6", description: "Contribute what you're expected to do when it's needed." },
-        { title: "Step 7", description: "Stay engaged and informed." },
+        { title: "Step 7", description: "Access resources and support" },
         { title: "Step 8", description: "Receive benefits in times of need." }
     ];
 

@@ -7,7 +7,7 @@ const HistoryUser = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const response = await fetch('https://api.example.com/history');
+                const response = await fetch('backend here');
                 const data = await response.json();
                 setHistory(data);
             } catch (error) {

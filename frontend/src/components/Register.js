@@ -44,14 +44,14 @@ const Register = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            status: 'Pending', // Set default status to Pending
-            consent: false // Default value for consent checkbox
+            status: 'Pending', 
+            consent: false 
         }
     });
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [isConsentVisible, setIsConsentVisible] = useState(false); // Control visibility of consent section
+    const [isConsentVisible, setIsConsentVisible] = useState(false); 
 
     const onSubmit = (formData) => {
         api.post('register/', formData)

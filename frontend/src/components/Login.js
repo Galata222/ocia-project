@@ -30,10 +30,10 @@ const Login = () => {
     };
 
     return (
-        <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="container d-flex justify-content-center align-items-center  vh-100">
             <div className="card" style={{ width: '25rem' }}>
                 <div className="card-body">
-                    <h5 className="card-title text-center">Login</h5>
+                    <h5 className="card-title text-center text-dark">Login</h5>
                     {error && <div className="alert alert-danger">{error}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">

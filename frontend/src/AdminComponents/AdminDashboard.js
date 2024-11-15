@@ -1,103 +1,71 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import ".././style/Adminstyle/admindashboard.css";
-import headerpro from "../Images/founder/profile.jpg";
-import { FaMoon, FaRegMoon, FaExpand, FaCompress } from 'react-icons/fa'; // Import icons
+import headerpro from "../Images/founder/profile.jpg"; 
+import { FaMoon, FaRegMoon, FaExpand, FaCompress } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../style/Adminstyle/admindashboard.css';
 
 function AdminDashboard() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false); // To manage fullscreen
+    const [sidebarOpen, setSidebarOpen] = useState(true); // Sidebar is open by default
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
-  const toggleFullscreen = () => {
-    setFullscreen(!fullscreen);
-    if (!fullscreen) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  };
+    const toggleFullscreen = () => {
+        setFullscreen(!fullscreen);
+        if (!fullscreen) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    };
 
-  return (
-    <div className={`body ${darkMode ? 'dark-mode' : ''} ${fullscreen ? 'fullscreen' : ''}`}>
-      <div className='sidebar'>
-        <div className='logo'>
-          <h2>OCIA</h2>
-        </div>
-        <ul className='menu'>
-          <li>
-            <Link to='/admin' className='active'>
-              <i className='fas fa-tachometer-alt' /> <span>Dashboard</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/manage-users'>
-              <i className='fas fa-users' /> <span>Manage Users</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/registration'>
-              <i className='fas fa-user-plus' /> <span>Register</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/submitted-risk'>
-              <i className='fas fa-exclamation-circle' /> <span>Submitted Risk</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/notifications'>
-              <i className='fas fa-bell' /> <span>Notifications</span>
-            </Link>
-          </li>
-          <li>
-            <Link to='/admin/reports'>
-              <i className='fas fa-chart-line' /> <span>Reports</span>
-            </Link>
-          </li>
-        
-          <li className='logout'>
-            <Link to='/admin'>
-              <i className='fas fa-sign-out-alt' /> <span>Log out</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
+    const toggleSidebar = () => {
+        setSidebarOpen(prevState => !prevState);
+    };
 
-      <div className='main-content'>
-        <div className='header-wrapper'>
-          <div className='header-title'>
-            <span>Admin</span>
-            <h2>Dashboard</h2>
-          </div>
+    return (
+        <div className={`dashboard ${darkMode ? 'dark-mode' : ''}`}>
+            <nav className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+                <div className="logo">Admin Panel</div>
+                <ul className="menu list-unstyled">
+                    <li><Link to='/admin' className='active'>Dashboard</Link></li>
+                    <li><Link to='/admin/manage-users'>Manage Users</Link></li>
+                    <li><Link to='/admin/registration'>Register</Link></li>
+                    <li><Link to='/admin/reports'>Reports</Link></li>
+                    <li className="logout"><Link to='/'>Log out</Link></li>
+                </ul>
+            </nav>
 
-          <div className='user-info'>
-            <div className='search-box'>
-              <i className='fas fa-search'></i>
-              <input type='text' placeholder='search' />
+            <div className={`main-content ${sidebarOpen ? '' : 'expanded'}`}>
+                <header className="header">
+                    <button className="hamburger-btn" onClick={toggleSidebar}>
+                        ☰
+                    </button>
+                    <div className="header-title">Admin Dashboard</div>
+                    <div className="header-profile">
+                        <img src={headerpro} alt='User' className='user-image' />
+                        <span className='user-name'>Admin Name</span>
+                        <div className="header-actions">
+                            <button onClick={toggleDarkMode}>
+                                {darkMode ? <FaMoon /> : <FaRegMoon />}
+                            </button>
+                            <button onClick={toggleFullscreen}>
+                                {fullscreen ? <FaCompress /> : <FaExpand />}
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                <div className="content">
+                    <Outlet /> {/* This will render the child routes */}
+                </div>
             </div>
-            <img src={headerpro} alt='adminimage'/>
-            <div className='actions'>
-              <button onClick={toggleDarkMode} className='action-btn'>
-                {darkMode ? <FaMoon /> : <FaRegMoon />}
-              </button>
-              <button onClick={toggleFullscreen} className='action-btn'>
-                {fullscreen ? <FaCompress /> : <FaExpand />}
-              </button>
-            </div>
-          </div>
         </div>
-
-        <div className='conditional-render'>
-          <Outlet /> {/* This will render the child routes */}
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default AdminDashboard;
-

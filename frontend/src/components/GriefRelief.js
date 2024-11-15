@@ -17,8 +17,8 @@ function GriefRelief() {
         </div>
         <div className="col-sm-6">
           <div className="feature-detail">
-            <h1 className="title f-36 animated fadeInRight wow" data-wow-delay=".1s">Relief your Grief Here</h1>
-            <h4 className="f-18 animated fadeInRight wow" data-wow-delay=".3s">May your tears turn to rays of hope, as you find solace in cherished memories</h4>
+            <h1 className="title f-36 animated fadeInRight wow" data-wow-delay=".1s">let's collaborate</h1>
+            <h4 className="f-18 animated fadeInRight wow" data-wow-delay=".3s">Quunceen wal gargaartee arba hitii</h4>
             <p className="features-txt animated fadeInRight wow" data-wow-delay=".5s">Dantes remained confused and silent by this explanation of the thoughts which had unconsciously been working in his mind, or rather soul; for there are two distinct sorts of ideas, those that proceed from the head and those from the heart.</p>
           </div>
         </div>
