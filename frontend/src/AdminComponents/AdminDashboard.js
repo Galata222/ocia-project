@@ -42,9 +42,9 @@ function AdminDashboard() {
     };
   }, [navigate]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
   const toggleFullscreen = () => {
     setFullscreen(!fullscreen);
@@ -142,12 +142,12 @@ function AdminDashboard() {
           </div>
         </div>
 
-        <div className='conditional-render'>
-          <Outlet /> {/* This will render the child routes */}
+                <div className="content">
+                    <Outlet /> {/* This will render the child routes */}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default AdminDashboard;

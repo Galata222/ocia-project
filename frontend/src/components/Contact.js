@@ -2,11 +2,12 @@ import React from 'react'
 import "../style/styles.css"
 import "../style/animate.css"
 import "../style/mklib.css"
+import "../style/customblue.css"
 function Contact() {
   return (
     <div>
           <div>
-  <section className="page-hero bg-custom-dark">
+  <section className="page-hero custom-blue">
     <div className="container">
       <div className="row">
         <div className="col-sm-12 text-center">

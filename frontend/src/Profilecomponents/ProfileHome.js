@@ -25,9 +25,9 @@ function ProfileHome() {
     }
   }, [navigate]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
   const toggleFullscreen = () => {
     setFullscreen(!fullscreen);

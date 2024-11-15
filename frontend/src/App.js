@@ -24,6 +24,17 @@ import SubmittedRisk from './AdminComponents/SubmittedRisk';
 import History from './AdminComponents/History';
 import Reports from './AdminComponents/Reports';
 import LoginComponent from './components/LoginComponent';
+import ForgotPassword from './components/ForgotPassword';
+import TermsAndConditions from './components/TermsAndConditions';
+import Notification from './components/Notification';
+import HistoryUser from './components/HistoryUser';
+import HowItWorks from './components/HowItWorks';
+import Support from './components/Support';
+import Donate from './components/Donate';
+import Volunteer from './components/Volunteer';
+import OtherService from './components/OtherService';
+import FREEService from './components/FreeService';
+import '../src/style/customfont.css'
 
 function App() {
     return (
@@ -35,7 +46,7 @@ function App() {
 
 function AppContent() {
     const location = useLocation();
-    const showNavAndFooter = ['/', '/About', '/contact', '/Service', '/login'].includes(location.pathname);
+    const showNavAndFooter = ['/', '/about', '/contact', '/terms', '/notifications', '/HowItWorks', '/ForgotPassword', '/Service','/other-service','/free-service', '/login', '/donate','/volunteer'].includes(location.pathname);
 
     return (
         <>
@@ -46,7 +57,14 @@ function AppContent() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/logini" element={<LoginComponent/>} />
+                <Route path="/terms" element={<TermsAndConditions />} />
+                <Route path="/HowItWorks" element={<HowItWorks />} />
+                <Route path="/ForgotPassword" element={<ForgotPassword />} />
+                <Route path="/other-service" element={<OtherService />} />
+                <Route path="/support" element={<Support />} />
+                <Route path="/volunteer" element={<Volunteer />} />
+                <Route path="/free-service" element={<FREEService />} />
+                <Route path="/Donate" element={<Donate paymentLink="https://donate.stripe.com/test_eVadSz7Vj1WKcs85kk" />} />
 
                 {/* Profile Routes */}
                 
@@ -54,11 +72,13 @@ function AppContent() {
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
                     <Route path="risks/edit/:id" element={<UpdateRisk />} />
-                    <Route path="risks"  element={<RiskList />} />
-                    <Route path="risks/:id"  element={<ViewRisk />} />
+                    <Route path="risks" element={<RiskList />} />
+                    <Route path="risks/:id" element={<ViewRisk />} />
                     <Route path="families" element={<FamilyList />} />
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />
+                    <Route path="notifications" element={<Notification />} />
+                    <Route path="history" element={<HistoryUser />} />
                 </Route>
                 
                 {/* Admin Dashboard Routes */}

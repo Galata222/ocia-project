@@ -1,0 +1,38 @@
+.history-component {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.history-list {
+    margin-top: 20px;
+}
+
+.history-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.history-item h4 {
+    margin: 0;
+    color: #333;
+}
+
+.history-item p {
+    margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+    .history-component {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .history-item {
+        padding: 10px;
+    }
+}

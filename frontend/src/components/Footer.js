@@ -6,17 +6,17 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center mb-4">
-            <h2 className="text-white mb-4">In Loving Memory</h2>
+            <h2 className="text-white mb-4">Warra Guddaa</h2>
             <p className="lead text-white">
-              Remember the moments, cherish the memories!
+            Together we can create more inclusive and Prosperous society
             </p>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-3 text-center">
-            <h2>OCIA</h2>
-            <h4>Oromo community in America</h4>
+            <h2>GOSA</h2>
+            <h4>Great Oromo Support Association</h4>
           </div>
           <div className="col-md-3 text-center">
             <p>&copy; 2024 OCIA.</p>
@@ -45,13 +45,12 @@ function Footer() {
           </div>
           <div className="col-md-3 text-center">
             <address className='text-white'>
-              123-5 Main Street<br />
-              Minnesota, USA 12345<br />
-              Phone: (123) 456-7890<br/>
-              Email:OCIA@gmail.com
+            7966 marquette ave ne<br />
+            Otsego MN 55330<br />
+            phone: +1612-000-0182<br/>
+            Email:communityoromo24@gmail.com
             </address>
           </div>
-         
         </div>
 
         <hr className="text-light my-4" />
