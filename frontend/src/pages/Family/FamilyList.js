@@ -15,7 +15,7 @@ const FamilyList = () => {
         const response = await api.get('/family/');
         setFamilies(response.data);
       } catch (err) {
-        const errorMessage = err.response?.data?.detail || 'An error occurred while fetching families.';
+        const errorMessage = err.response?.data?.detail ;
         setError(errorMessage);
       } finally {
         setLoading(false);

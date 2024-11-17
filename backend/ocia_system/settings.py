@@ -4,9 +4,13 @@ Django settings for ocia_system project.
 
 from pathlib import Path
 import os
+# settings.py
+
 # from user.models import User
 # Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Security settings
 SECRET_KEY = 'django-insecure-)f7$gph77obvv%wmkz5_+lbibb*ilf60$hlno-goci*ai0w0&j'

@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+// Checksum validation for routing number
 const checksumIsValid = (routingNumber) => {
     const digits = routingNumber.split('').map(Number);
     const checksum =
@@ -17,6 +18,7 @@ const checksumIsValid = (routingNumber) => {
     return checksum % 10 === 0;
 };
 
+// Validation schema using Yup
 const schema = yup.object().shape({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
@@ -36,7 +38,7 @@ const schema = yup.object().shape({
     password: yup.string().min(8, 'Password must be at least 8 characters').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/, 'Password must contain uppercase, lowercase, number, and special character').required('Password is required'),
     confirm_password: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required('Confirm password is required'),
     social_security_number: yup.string().matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX').required('Social Security Number is required'),
-    status: yup.string().oneOf(['Pending', 'approved', 'rejected'], 'Status is required').required('Status is required'),
+    status: yup.string().oneOf(['Pending', 'Approved', 'Rejected'], 'Status is required').required('Status is required'),
     consent: yup.boolean().oneOf([true], 'You must agree to the terms and conditions').required('Consent is required'),
 });
 
@@ -44,16 +46,19 @@ const Register = () => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            status: 'Pending', 
-            consent: false 
-        }
+            status: 'Pending',
+            consent: false,
+        },
     });
 
     const [message, setMessage] = useState('');
     const [registrationError, setRegistrationError] = useState('');
+    const [loading, setLoading] = useState(false);
 
+    // Fetch users (if necessary, otherwise consider removing)
     useEffect(() => {
         const fetchUsers = async () => {
+            setLoading(true);
             try {
                 const token = localStorage.getItem('accessToken');
                 const response = await api.get('users/', {
@@ -61,9 +66,9 @@ const Register = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setUsers(response.data);
+                // Handle fetched users as needed
             } catch (error) {
-                setError('There was an error fetching the users!');
+                setRegistrationError('There was an error fetching the users!');
             } finally {
                 setLoading(false);
             }
@@ -72,45 +77,11 @@ const Register = () => {
         fetchUsers();
     }, []);
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (formData.password !== formData.confirmPassword) {
-            setRegistrationError("Passwords do not match.");
-            return;
-        }
-
+    const onSubmit = async (data) => {
         try {
-            const response = await api.post('/register/', formData);
+            const response = await api.post('/register/', data);
             setMessage('User registered successfully! A confirmation email has been sent.');
             setRegistrationError('');
-            // Reset the form
-            setFormData({
-                first_name: '',
-                last_name: '',
-                age: '',
-                gender: '',
-                email: '',
-                phone: '',
-                address: '',
-                occupation: '',
-                employer: '',
-                monthly_income: '',
-                bank_name: '',
-                bank_account_number: '',
-                swift_bic_code: '',
-                password: '',
-                confirmPassword: '',
-                role: 'user',
-            });
-            setShowForm(false); // Hide the form after successful registration
         } catch (err) {
             const errorMessage = err.response?.data?.detail || 'Error registering user.';
             setRegistrationError(errorMessage);
@@ -118,98 +89,44 @@ const Register = () => {
         }
     };
 
-    const columns = [
-        { name: 'Username', selector: row => row.email, sortable: true },
-        { name: 'First Name', selector: row => row.first_name, sortable: true },
-        { name: 'Last Name', selector: row => row.last_name, sortable: true },
-        { name: 'Status', selector: row => row.status, sortable: true },
-    ];
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
+    if (loading) return <div>Loading...</div>;
 
     return (
         <div className="register__container">
             <h2 className="register__title">Register</h2>
             <form className="register__form" onSubmit={handleSubmit(onSubmit)}>
-                <label className="register__label">First Name</label>
-                <Controller
-                    name="first_name"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.first_name && <p className="register__error">{errors.first_name.message}</p>}
+                {/* Reusable Input Component */}
+                {['first_name', 'last_name', 'age', 'street', 'apartment', 'city', 'state', 'zip', 'social_security_number', 'bank_name', 'bank_account_number', 'routing_number', 'swift_bic_code'].map((field) => (
+                    <InputField key={field} name={field} control={control} errors={errors} />
+                ))}
 
-                <label className="register__label">Last Name</label>
-                <Controller
-                    name="last_name"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.last_name && <p className="register__error">{errors.last_name.message}</p>}
-
-                <label className="register__label">Age</label>
-                <Controller
-                    name="age"
-                    control={control}
-                    render={({ field }) => <input type="number" {...field} className="register__input" />}
-                />
-                {errors.age && <p className="register__error">{errors.age.message}</p>}
-
+                {/* Gender Radio Buttons */}
                 <label className="register__label">Gender</label>
                 <div className="register__gender">
-                    <Controller
-                        name="gender"
-                        control={control}
-                        defaultValue=""
-                        render={({ field }) => (
-                            <>
-                                <label>
+                    {['Male', 'Female', 'Other'].map((gender) => (
+                        <label key={gender}>
+                            <Controller
+                                name="gender"
+                                control={control}
+                                render={({ field }) => (
                                     <input
                                         type="radio"
-                                        value="Male"
-                                        checked={field.value === 'Male'}
-                                        onChange={() => field.onChange('Male')}
+                                        value={gender}
+                                        checked={field.value === gender}
+                                        onChange={() => field.onChange(gender)}
                                     />
-                                    Male
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="Female"
-                                        checked={field.value === 'Female'}
-                                        onChange={() => field.onChange('Female')}
-                                    />
-                                    Female
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="Other"
-                                        checked={field.value === 'Other'}
-                                        onChange={() => field.onChange('Other')}
-                                    />
-                                    Other
-                                </label>
-                            </>
-                        )}
-                    />
-                    {errors.gender && <p className="register__error">{errors.gender.message}</p>}
+                                )}
+                            />
+                            {gender}
+                        </label>
+                    ))}
                 </div>
+                {errors.gender && <p className="register__error">{errors.gender.message}</p>}
 
-                <label className="register__label">Email</label>
-                <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => <input type="email" {...field} className="register__input" />}
-                />
-                {errors.email && <p className="register__error">{errors.email.message}</p>}
+                {/* Email Input */}
+                <InputField name="email" control={control} type="email" errors={errors} />
 
+                {/* Phone Number Input */}
                 <label className="register__label">Phone Number</label>
                 <Controller
                     name="phone"
@@ -225,143 +142,57 @@ const Register = () => {
                 />
                 {errors.phone && <p className="register__error">{errors.phone.message}</p>}
 
-                <label className="register__label">Street Address</label>
-                <Controller
-                    name="street"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.street && <p className="register__error">{errors.street.message}</p>}
+                {/* Password Fields */}
+                <InputField name="password" control={control} type="password" errors={errors} />
+                <InputField name="confirm_password" control={control} type="password" errors={errors} />
 
-                <label className="register__label">Apartment Number</label>
-                <Controller
-                    name="apartment"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-
-                <label className="register__label">City</label>
-                <Controller
-                    name="city"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.city && <p className="register__error">{errors.city.message}</p>}
-
-                <label className="register__label">State (2-letter code)</label>
-                <Controller
-                    name="state"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.state && <p className="register__error">{errors.state.message}</p>}
-
-                <label className="register__label">ZIP Code</label>
-                <Controller
-                    name="zip"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.zip && <p className="register__error">{errors.zip.message}</p>}
-
-                <label className="register__label">Social Security Number</label>
-                <Controller
-                    name="social_security_number"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.social_security_number && <p className="register__error">{errors.social_security_number.message}</p>}
-
+                {/* Status Dropdown */}
                 <label className="register__label">Status</label>
                 <Controller
                     name="status"
                     control={control}
                     render={({ field }) => (
-                        <select {...field} className="register__input" disabled={!field.value}>
+                        <select {...field} className="register__input">
                             <option value="Pending">Pending</option>
-                            <option value="Active">Approved</option>
-                            <option value="Inactive">Rejected</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
                         </select>
                     )}
                 />
                 {errors.status && <p className="register__error">{errors.status.message}</p>}
 
-                <label className="register__label">Bank Name</label>
-                <Controller
-                    name="bank_name"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.bank_name && <p className="register__error">{errors.bank_name.message}</p>}
-
-                <label className="register__label">Bank Account Number</label>
-                <Controller
-                    name="bank_account_number"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.bank_account_number && <p className="register__error">{errors.bank_account_number.message}</p>}
-
-                <label className="register__label">Routing Number</label>
-                <Controller
-                    name="routing_number"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-                {errors.routing_number && <p className="register__error">{errors.routing_number.message}</p>}
-
-                <label className="register__label">Swift/BIC Code</label>
-                <Controller
-                    name="swift_bic_code"
-                    control={control}
-                    render={({ field }) => <input {...field} className="register__input" />}
-                />
-
-                <label className="register__label">Password</label>
-                <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => <input type="password" {...field} className="register__input" />}
-                />
-                {errors.password && <p className="register__error">{errors.password.message}</p>}
-
-                <label className="register__label">Confirm Password</label>
-                <Controller
-                    name="confirm_password"
-                    control={control}
-                    render={({ field }) => <input type="password" {...field} className="register__input" />}
-                />
-                {errors.confirm_password && <p className="register__error">{errors.confirm_password.message}</p>}
-
                 {/* Consent Checkbox */}
-                <label className="register__label register__consent-link" onClick={handleConsentClick}>
-                    <span className="register__consent-text">I agree to the terms and conditions</span>
-                </label>
-                {isConsentVisible && (
-                    <div className="register__consent-textbox">
-                        <p>
-                            By joining, you agree to our <a href="/terms">Terms and Conditions</a>.
-                        </p>
-                        <Controller
-                            name="consent"
-                            control={control}
-                            render={({ field }) => (
-                                <div className="register__consent-checkbox">
-                                    <input type="checkbox" {...field} />
-                                    <span>Yes, I agree</span>
-                                </div>
-                            )}
-                        />
-                        {errors.consent && <p className="register__error">{errors.consent.message}</p>}
-                    </div>
-                )}
+                <Controller
+                    name="consent"
+                    control={control}
+                    render={({ field }) => (
+                        <div className="register__consent-checkbox">
+                            <input type="checkbox" {...field} />
+                            <span>I agree to the terms and conditions</span>
+                        </div>
+                    )}
+                />
+                {errors.consent && <p className="register__error">{errors.consent.message}</p>}
 
                 <button type="submit" className="register__button">Register</button>
             </form>
             {message && <p className="register__message">{message}</p>}
-            {error && <p className="register__error">{error}</p>}
+            {registrationError && <p className="register__error">{registrationError}</p>}
         </div>
     );
 };
 
-export default ManageUsers;
+// Reusable InputField Component
+const InputField = ({ name, control, type = 'text', errors }) => (
+    <>
+        <label className="register__label">{name.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}</label>
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => <input {...field} type={type} className="register__input" />}
+        />
+        {errors[name] && <p className="register__error">{errors[name].message}</p>}
+    </>
+);
+
+export default Register;

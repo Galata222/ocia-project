@@ -33,7 +33,7 @@ function Nav() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-md custom-navbar bg-custom-dark">
+      <nav className="navbar navbar-expand-md custom-navbar ">
         <div className="container">
           <Link to="/" className="logo custom-text">
             <i className="ion-social-buffer" />

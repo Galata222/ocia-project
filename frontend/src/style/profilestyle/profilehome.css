@@ -1,16 +1,17 @@
 /* profilehome.css */
-.dashboard {
+.profilehome-container {
     display: flex;
     height: 100vh;
     transition: background-color 0.3s;
 }
 
+/* Sidebar styles */
 .sidebar {
     width: 250px;
     background: #007bff;
     color: white;
-    transition: transform 0.3s;
-    transform: translateX(0);
+    transition: transform 0.3s, background-color 0.3s;
+    position: relative;
 }
 
 .sidebar.closed {
@@ -21,10 +22,13 @@
     padding: 20px;
     font-size: 1.5em;
     text-align: center;
+    color: white;
 }
 
 .menu {
     padding: 20px 0;
+    list-style: none;
+    margin: 0;
 }
 
 .menu li {
@@ -32,26 +36,44 @@
     transition: background 0.3s;
 }
 
-.menu li:hover, .menu li.active {
+.menu li:hover,
+.menu li.active {
     background: rgba(255, 255, 255, 0.2);
 }
 
 .menu a {
     color: white;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 15px 20px;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main content styles */
 .main-content {
     flex: 1;
     background: #f8f9fa;
     padding: 20px;
-    transition: margin-left 0.3s;
+    transition: margin-left 0.3s, background-color 0.3s;
 }
 
-.main-content.expanded {
-    margin-left: 0;
-}
-
+/* Header styles */
 .header {
     display: flex;
     align-items: center;
@@ -59,71 +81,128 @@
     padding: 10px 20px;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.hamburger-btn {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .header-title {
     font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
-.header-profile {
+.header-actions {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 
-.user-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.user-name {
-    margin-right: 10px;
-}
-
-.header-actions button {
+.action-btn {
     background: none;
     border: none;
     font-size: 1.5em;
     cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
 }
 
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.username {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Dark mode styles */
 .dark-mode {
-    background-color: black; /* Set background to black */
-    color: white; /* Set text color to white */
+    background-color: black;
+    color: white;
 }
 
 .dark-mode .sidebar {
-    background: #495057; /* Sidebar darker in dark mode */
+    background: #495057;
+}
+
+.dark-mode .menu li {
+    background: #343a40;
+}
+
+.dark-mode .menu li:hover,
+.dark-mode .menu li.active {
+    background: #495057;
+}
+
+.dark-mode .menu a {
+    color: #ced4da;
 }
 
 .dark-mode .main-content {
-    background: #212529; /* Darker main content area */
+    background: #212529;
 }
 
-/* Responsive Styles */
+.dark-mode .header {
+    background: #343a40;
+    color: white;
+}
+
+.dark-mode .action-btn {
+    color: #ced4da;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
     .sidebar {
-        display: none; /* Hide sidebar on small screens */
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.closed {
+        transform: translateX(-100%);
     }
 
     .sidebar.open {
-        display: block; /* Show sidebar when open */
-        transform: translateX(0); /* Slide in */
-    }
-
-    .main-content {
-        margin-left: 0; /* Full width */
+        transform: translateX(0);
     }
 
     .hamburger-btn {
-        display: block; /* Show hamburger button */
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .header-title {
+        font-size: 1.2em;
+    }
+
+    .profile-pic {
+        width: 30px;
+        height: 30px;
+    }
+
+    .username {
+        font-size: 0.9em;
     }
 }
