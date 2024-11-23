@@ -71,7 +71,7 @@ function AppContent() {
                 <Route path="/ProfileHome" element={<ProfileHome />}>
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
-                    <Route path="risks/edit/:id" element={<UpdateRisk />} />
+                    <Route path="risks/edit/:id" element={<RiskList />} />
                     <Route path="risks" element={<RiskList />} />
                     <Route path="risks/:id" element={<ViewRisk />} />
                     <Route path="families" element={<FamilyList />} />
@@ -86,7 +86,10 @@ function AppContent() {
                     <Route path="manage-users" element={<ManageUsers />} />
                     <Route path="notifications" element={<Notifications />} />
                     <Route path="registration" element={<Register />} />
-                    <Route path="submitted-risk" element={<SubmittedRisk />} />
+                    <Route path="risks" element={<RiskList />} />
+                    <Route path="risks/:id" element={<ViewRisk />} />
+                    <Route path="submit-risk" element={<SubmitRisk />} />
+                    <Route path="risks/edit/:id" element={<RiskList />} />
                     <Route path="history" element={<History />} />
                     <Route path="reports" element={<Reports />} />
                     <Route path="profile" element={<Profile />} />

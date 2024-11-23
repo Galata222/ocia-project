@@ -6,6 +6,7 @@ from .models import Family
 from .serializers import FamilySerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+
 class FamilyListView(generics.ListAPIView):
     """Retrieve a list of family members for the authenticated user."""
     serializer_class = FamilySerializer

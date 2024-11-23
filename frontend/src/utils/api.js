@@ -36,4 +36,18 @@ api.interceptors.request.use(
   }
 );
 
+/**
+ * Fetch the current user's role.
+ * Returns a promise that resolves to an object containing user role information.
+ */
+export const fetchUserRole = async () => {
+  try {
+    const response = await api.get('/user-role/'); // Adjust the endpoint as necessary
+    return response.data; // Assume the API response includes `{ is_admin: true/false }`
+  } catch (error) {
+    console.error('Error fetching user role:', error);
+    throw error;
+  }
+};
+
 export default api;

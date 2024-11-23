@@ -89,7 +89,7 @@ function AdminDashboard() {
             </Link>
           </li>
           <li>
-            <Link to="/admin/submitted-risk">
+            <Link to="/admin/risks">
               <i className="fas fa-exclamation-circle" /> <span>Submitted Risk</span>
             </Link>
           </li>
