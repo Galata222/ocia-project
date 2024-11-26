@@ -40,7 +40,7 @@ class FamilyUpdateView(generics.UpdateAPIView):
     serializer_class = FamilySerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-
+    
     def get_queryset(self):
         return Family.objects.filter(user=self.request.user)  # Filter by user
 

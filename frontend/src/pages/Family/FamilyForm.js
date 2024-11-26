@@ -10,7 +10,7 @@ const FamilyForm = ({ family, onClose, onUpdate }) => {
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-  
+
   useEffect(() => {
     if (family) {
       // Populate fields if editing an existing family member

@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../utils/api'; // Adjust the import based on your API setup
+import api from '../../utils/api';
 
 const SubmitRisk = ({ risk, onClose, onUpdate }) => {
     const [riskType, setRiskType] = useState('');
     const [riskDescription, setRiskDescription] = useState('');
     const [riskDate, setRiskDate] = useState('');
-    const [status, setStatus] = useState('Submitted'); // Default status
+    const [status, setStatus] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false); // State to check if the user is admin
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        // Fetch user role to determine if they are admin
         const fetchUserRole = async () => {
             try {
-                const response = await api.get('/user-role/'); // Adjust the endpoint to your backend
-                setIsAdmin(response.data.is_admin); // Assume the API returns { is_admin: true/false }
+                const response = await api.get('/user-role/');
+                setIsAdmin(response.data.is_admin);
             } catch (err) {
                 console.error('Failed to fetch user role:', err);
             }
@@ -25,17 +24,15 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
         fetchUserRole();
 
         if (risk) {
-            // Populate fields if editing an existing risk
             setRiskType(risk.risk_type);
             setRiskDescription(risk.risk_description);
             setRiskDate(risk.risk_date);
-            setStatus(risk.status || 'Submitted');
+            setStatus(risk.status);
         } else {
-            // Reset fields if not editing
             setRiskType('');
             setRiskDescription('');
             setRiskDate('');
-            setStatus('Submitted');
+            setStatus('');
         }
     }, [risk]);
 
@@ -52,28 +49,38 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
         setLoading(true);
 
         try {
-            const riskData = { risk_type: riskType, risk_description: riskDescription, risk_date: riskDate, status };
+            const riskData = {
+                risk_type: riskType,
+                risk_description: riskDescription,
+                risk_date: riskDate,
+                status:status,
+            };
+
+            let response;
+
             if (risk) {
-                // Update existing risk
-                await api.put(`/risks/${risk.id}/`, riskData);
+                response = await api.put(`/risks/${risk.risk_id}/update/`, riskData);
                 onUpdate((prevRisks) =>
-                    prevRisks.map((r) => (r.id === risk.id ? { ...r, ...riskData } : r))
+                    prevRisks.map((r) => (r.risk_id === risk.risk_id ? { ...r, ...riskData } : r))
                 );
             } else {
-                // Create new risk
-                const response = await api.post('/risks/create/', riskData);
+                response = await api.post('/risks/create/', riskData);
                 onUpdate((prevRisks) => [...prevRisks, response.data]);
             }
+
             setSuccess('Risk saved successfully!');
             setTimeout(() => setSuccess(''), 3000);
-            onClose(); // Close the form
+            onClose();
         } catch (err) {
-            const errorMessage = err.response?.data?.detail || 'An error occurred while saving the risk.';
+            console.error('Error while saving the risk:', err.response || err.message);
+            const errorMessage =
+                err.response?.data?.detail || err.response?.data?.message || 'An error occurred while saving the risk.';
             setError(errorMessage);
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div>
@@ -89,7 +96,7 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
                         value={riskType}
                         onChange={(e) => setRiskType(e.target.value)}
                         required
-                        disabled={isAdmin} // Disable for admin
+                        disabled={isAdmin}
                     >
                         <option value="">Select Risk Type</option>
                         <option value="Death">Death</option>
@@ -106,7 +113,7 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
                         value={riskDescription}
                         onChange={(e) => setRiskDescription(e.target.value)}
                         required
-                        disabled={isAdmin} // Disable for admin
+                        disabled={isAdmin}
                     />
                 </div>
                 <div className="mb-3">
@@ -118,7 +125,7 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
                         value={riskDate}
                         onChange={(e) => setRiskDate(e.target.value)}
                         required
-                        disabled={isAdmin} // Disable for admin
+                        disabled={isAdmin}
                     />
                 </div>
                 <div className="mb-3">
@@ -140,6 +147,7 @@ const SubmitRisk = ({ risk, onClose, onUpdate }) => {
                             id="status"
                             className="form-control"
                             value={status}
+                           // placeholder='Submitted'
                             disabled
                         />
                     )}

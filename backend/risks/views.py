@@ -32,22 +32,31 @@ class RiskRetrieveView(generics.RetrieveAPIView):
     def get_queryset(self):
         return Risk.objects.filter(user=self.request.user)  # Filter by user
 
+from rest_framework import generics, permissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import Risk
+from .serializers import RiskSerializer
+
 class RiskUpdateView(generics.UpdateAPIView):
-    """Update an existing risk for the authenticated user."""
+    """Update an existing risk for any authenticated user."""
     serializer_class = RiskSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-
+    
     def get_queryset(self):
-        return Risk.objects.filter(user=self.request.user)  # Filter by user
-
+        # Any authenticated user can update any risk
+        return Risk.objects.all()
+    
 class RiskDestroyView(generics.DestroyAPIView):
-    """Delete a risk for the authenticated user."""
+    """Delete a risk for the authenticated user or for all users if admin."""
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
     def get_queryset(self):
-        return Risk.objects.filter(user=self.request.user)  # Filter by user
+        user = self.request.user
+        if user.is_staff:  # Check if the user is an admin
+            return Risk.objects.all()  # Admin can access all risks
+        return Risk.objects.filter(user=user)  # Regular user can only access their own risks
 
     def destroy(self, request, *args, **kwargs):
         risk = self.get_object()

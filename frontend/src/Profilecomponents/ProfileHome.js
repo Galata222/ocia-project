@@ -76,8 +76,8 @@ function ProfileHome() {
             </a>
           </li>
           <li>
-            <a href="/ProfileHome/submit-risk">
-              <i className="fas fa-exclamation-circle" /> <span>Risk Submission</span>
+            <a href="/ProfileHome/risks">
+              <i className="fas fa-exclamation-circle" /> <span>Risks</span>
             </a>
           </li>
           <li>

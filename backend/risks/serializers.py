@@ -14,4 +14,4 @@ class RiskSerializer(serializers.ModelSerializer):
             'risk_date',
             'status',
         ]
-        read_only_fields = ['risk_id', 'user', 'status']  # Prevent modification of certain fields
+        read_only_fields = ['risk_id', 'user']  # Prevent modification of certain fields
