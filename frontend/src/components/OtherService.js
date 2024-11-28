@@ -61,8 +61,8 @@ const servicesData = [
 
 const ServicesList = () => {
     return (
-      <div className="custom-blue">
-        <div className="container my-0">
+      <div className="custom-blue py-5">
+        <div >
           <h2 className="text-center mb-4">Other Services</h2>
           
           <h3 className="text-center mb-3">IT and Software Development Services</h3>

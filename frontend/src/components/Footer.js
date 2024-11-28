@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../style/darkblue.css';
 function Footer() {
   return (
-    <footer className="bg-dark text-light py-4">
+    <footer className="dark-blue">
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center mb-4">

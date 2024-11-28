@@ -1,0 +1,74 @@
+.superadmin-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.numbers {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.counter {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.counter:hover {
+    transform: scale(1.05);
+}
+
+.charts {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.chart-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.table-container {
+    background: #ffffff;
+    border-radius: 10px;
+    width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  margin-left: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background: #f2f2f2;
+}
+
+.calendar-container {
+    background: #ffffff;
+    border-radius: 10px;
+    width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+}

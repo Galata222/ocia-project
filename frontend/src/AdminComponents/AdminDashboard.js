@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { FaMoon, FaRegMoon, FaExpand, FaCompress, FaBars } from "react-icons/fa";
 import "../style/Adminstyle/admindashboard.css";
-import { FaMoon, FaRegMoon, FaExpand, FaCompress } from "react-icons/fa";
 
-const mediaUrl = "http://localhost:8000"; // Adjust the base URL if necessary
+const mediaUrl = "http://localhost:8000";
 
 function AdminDashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
-  const [user, setUser] = useState(null); // State to store user info
+  const [user, setUser] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to fetch user data from localStorage
     const fetchUserData = () => {
       const userData = {
         first_name: localStorage.getItem("first_name"),
@@ -21,140 +21,93 @@ function AdminDashboard() {
       };
 
       if (userData.first_name && userData.last_name) {
-        setUser(userData); // Set user data into state
+        setUser(userData);
       } else {
-        // Redirect to login page if no user data found
         navigate("/login");
       }
     };
 
     fetchUserData();
 
-    // Event listener to handle updates from profile updates
     const handleStorageChange = () => {
       fetchUserData();
     };
 
     window.addEventListener("storage", handleStorageChange);
-
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, [navigate]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    setDarkMode(prevMode => !prevMode);
   };
 
   const toggleFullscreen = () => {
-    setFullscreen(!fullscreen);
-    if (!fullscreen) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
+    setFullscreen(prevFullscreen => {
+      if (!prevFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+      return !prevFullscreen;
+    });
   };
 
   const handleLogout = () => {
-    // Remove the token or authentication data
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("first_name");
-    localStorage.removeItem("last_name");
-    localStorage.removeItem("profile_picture");
-    localStorage.removeItem("role");
-    // Navigate to the login page
+    localStorage.clear();
     navigate("/login");
   };
 
   return (
-    <div
-      className={`dashboard ${darkMode ? "dark-mode" : ""} ${fullscreen ? "fullscreen" : ""
-        }`}
-    >
-      {/* Sidebar */}
-      <div className={`sidebar ${darkMode ? "dark-mode" : ""}`}>
+    <div className={`admin-dashboard ${darkMode ? "dark-mode" : ""} ${fullscreen ? "fullscreen" : ""}`}>
+      <div className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo">
-          <h2>OCIA</h2>
+          <h2>Gosa</h2>
         </div>
-        <ul className="menu">
-          <li>
-            <Link to="/admin" className="active">
-              <i className="fas fa-tachometer-alt" /> <span>Dashboard</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/registration">
-              <i className="fas fa-user-plus" /> <span>Register</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/submitted-risk">
-              <i className="fas fa-exclamation-circle" /> <span>Submitted Risk</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/notifications">
-              <i className="fas fa-bell" /> <span>Notifications</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/reports">
-              <i className="fas fa-chart-line" /> <span>Reports</span>
-            </Link>
-          </li>
-          <li>
-            <a href="/admin/profile">
-              <i className="fas fa-user-plus" /> <span>Update Profile</span>
-            </a>
-          </li>
-          <li className="logout">
-            <button onClick={handleLogout} className="logout-btn">
-              <i className="fas fa-sign-out-alt" /> <span>Log out</span>
-            </button>
-          </li>
-        </ul>
+        <nav className="menu">
+          <Link to="/admin/Dashboard" className="menu-item">Dashboard</Link>
+          <Link to="/admin/registration" className="menu-item">Register</Link>
+          <Link to="/admin/submitted-risk" className="menu-item">Submitted Risk</Link>
+          <Link to="/admin/notifications" className="menu-item">Notifications</Link>
+          <Link to="/admin/reports" className="menu-item">Reports</Link>
+          <Link to="/admin/profile" className="menu-item">Update Profile</Link>
+          <button onClick={handleLogout} className="logout-btn">Log out</button>
+        </nav>
       </div>
 
-      {/* Main Content */}
       <div className="main-content">
-        <div className="header-wrapper">
-          {/* Header Title */}
+
+        <div className="header">
+          <div className="humbhead">
+          <button className="hamburger" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            <FaBars />
+          </button>
           <div className="header-title">
-            <span>Admin</span>
-            <h2>Dashboard</h2>
+            <h4> Admin Dashboard</h4>
           </div>
-
-          {/* Header Actions */}
+          </div>
+          <div>
           <div className="header-actions">
-            <div className="actions">
-              <button onClick={toggleDarkMode} className="action-btn">
-                {darkMode ? <FaMoon /> : <FaRegMoon />}
-              </button>
-              <button onClick={toggleFullscreen} className="action-btn">
-                {fullscreen ? <FaCompress /> : <FaExpand />}
-              </button>
-            </div>
 
-            {/* Profile Info */}
             <div className="profile-info">
               <img
-                src={
-                  user?.profile_picture
-                    ? `${mediaUrl}${user.profile_picture}`
-                    : "default_profile_picture.jpg"
-                }
+                src={user?.profile_picture ? `${mediaUrl}${user.profile_picture}` : "default_profile_picture.jpg"}
                 alt="Profile Avatar"
                 className="profile-pic"
               />
-              <div className="username">
-                {user ? `${user.first_name} ${user.last_name}` : "Guest"}
-              </div>
+              <div className="username">{user ? `${user.first_name} ${user.last_name}` : "Guest"}</div>
+            </div>
+              <button onClick={toggleFullscreen} className="action-btn">
+              {fullscreen ? <FaCompress /> : <FaExpand />}
+            </button>
+            <button onClick={toggleDarkMode} className="action-btn">
+              {darkMode ? <FaMoon /> : <FaRegMoon />}
+            </button>
+          
             </div>
           </div>
         </div>
-
-        {/* Outlet for Child Routes */}
         <div className="content">
           <Outlet />
         </div>

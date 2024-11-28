@@ -52,7 +52,7 @@ function ProfileHome() {
     <div className={`profilehome-container ${darkMode ? 'dark-mode' : ''} ${fullscreen ? 'fullscreen' : ''}`}>
       <div className={`sidebar ${darkMode ? 'dark-mode' : ''} ${sidebarOpen ? '' : 'closed'}`}>
         <div className="logo">
-          <h2>OCIA</h2>
+          <h2>GOSA</h2>
         </div>
         <ul className="menu">
           <li>

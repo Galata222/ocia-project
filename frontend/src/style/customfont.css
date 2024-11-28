@@ -1,4 +1,118 @@
+/* index.css or App.css */
 
 body {
-    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
-}
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0.67em 0;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0.75em 0;
+  }
+  
+  h3 {
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 0.83em 0;
+  }
+  
+  h4 {
+    font-size: 1.125em;
+    font-weight: 700;
+    margin: 1em 0;
+  }
+  
+  h5 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 1.25em 0;
+  }
+  
+  h6 {
+    font-size: 0.875em;
+    font-weight: 600;
+    margin: 1.5em 0;
+  }
+  
+  a {
+    font-family: 'Roboto', sans-serif;
+    color: #2269B2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #1A4E7D;
+    text-decoration: underline;
+  }
+  
+  button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #2269B2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #1A4E7D;
+  }
+  
+  .navbar {
+    background-color: #1A4E7D;
+    padding: 15px 0;
+  }
+  
+  .nav-link {
+    color: white;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.75em;
+    }
+    h2 {
+      font-size: 1.4em;
+    }
+    h3 {
+      font-size: 1.2em;
+    }
+    button {
+      width: 100%;
+    }
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mb-1 {
+    margin-bottom: 1em;
+  }
+  
+  .p-2 {
+    padding: 2em;
+  }

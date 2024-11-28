@@ -1,0 +1,28 @@
+/* CalendarComponent.css */
+.marked {
+  background-color: #ffeb3b !important; 
+  color: black !important; 
+}
+
+.react-calendar {
+  border: none; 
+}
+
+.react-calendar__tile {
+  color: #333;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0; 
+  color: #ccc;
+}
+
+.react-calendar__tile--active {
+  background-color: #007bff !important; 
+  color: white; 
+}
+
+.react-calendar__tile--now {
+  background-color: #e0f7fa !important; 
+  color: #007bff;
+}

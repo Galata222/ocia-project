@@ -6,6 +6,7 @@ import 'react-phone-number-input/style.css';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Link } from 'react-router-dom';
 
 // Checksum validation for routing number
 const checksumIsValid = (routingNumber) => {
@@ -168,7 +169,8 @@ const Register = () => {
                     render={({ field }) => (
                         <div className="register__consent-checkbox">
                             <input type="checkbox" {...field} />
-                            <span>I agree to the terms and conditions</span>
+                           
+                            <span>I agree to the <a href='/termsandcondition'>TermsAndConditions</a> </span>
                         </div>
                     )}
                 />

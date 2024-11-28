@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes,useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
 import MemberHome from './pages/MemberDashboard/Home';
@@ -12,18 +12,17 @@ import AdminHome from './pages/AdminDashboard/Home';
 import ManageUsers from './pages/AdminDashboard/ManageUsers';
 import Notifications from './pages/AdminDashboard/Notifications';
 import About from './components/About';
-import "../src/fontawesome/css/all.css"
+import "../src/fontawesome/css/all.css";
 import Nav from './components/Nav';
 import Contact from './components/Contact';
 import Register from './components/Register';
 import Login from './components/Login';
 import FamilyList from './pages/Family/FamilyList';
 import FamilyForm from './pages/Family/FamilyForm';
-import ProfileHome from './Profilecomponents/ProfileHome'
+import ProfileHome from './Profilecomponents/ProfileHome';
 import SubmittedRisk from './AdminComponents/SubmittedRisk';
 import History from './AdminComponents/History';
 import Reports from './AdminComponents/Reports';
-import LoginComponent from './components/LoginComponent';
 import ForgotPassword from './components/ForgotPassword';
 import TermsAndConditions from './components/TermsAndConditions';
 import Notification from './components/Notification';
@@ -34,7 +33,8 @@ import Donate from './components/Donate';
 import Volunteer from './components/Volunteer';
 import OtherService from './components/OtherService';
 import FREEService from './components/FreeService';
-import '../src/style/customfont.css'
+import '../src/style/customfont.css';
+import Dashboard from './AdminComponents/Dashboard';
 
 function App() {
     return (
@@ -46,7 +46,7 @@ function App() {
 
 function AppContent() {
     const location = useLocation();
-    const showNavAndFooter = ['/', '/about', '/contact', '/terms', '/notifications', '/HowItWorks', '/ForgotPassword', '/Service','/other-service','/free-service', '/login', '/donate','/volunteer'].includes(location.pathname);
+    const showNavAndFooter = ['/', '/about', '/contact', '/terms', '/notifications', '/HowItWorks', '/ForgotPassword', '/Service', '/other-service', '/free-service', '/login', '/termsandcondition', '/donate', '/volunteer'].includes(location.pathname);
 
     return (
         <>
@@ -57,6 +57,7 @@ function AppContent() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/termsandcondition" element={<TermsAndConditions />} />
                 <Route path="/terms" element={<TermsAndConditions />} />
                 <Route path="/HowItWorks" element={<HowItWorks />} />
                 <Route path="/ForgotPassword" element={<ForgotPassword />} />
@@ -67,7 +68,6 @@ function AppContent() {
                 <Route path="/Donate" element={<Donate paymentLink="https://donate.stripe.com/test_eVadSz7Vj1WKcs85kk" />} />
 
                 {/* Profile Routes */}
-                
                 <Route path="/ProfileHome" element={<ProfileHome />}>
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
@@ -83,6 +83,8 @@ function AppContent() {
                 
                 {/* Admin Dashboard Routes */}
                 <Route path="/admin" element={<AdminHome />}>
+                    <Route index element={<Navigate to="/admin/Dashboard" />} />
+                    <Route path="Dashboard" element={<Dashboard />} />
                     <Route path="manage-users" element={<ManageUsers />} />
                     <Route path="notifications" element={<Notifications />} />
                     <Route path="registration" element={<Register />} />
