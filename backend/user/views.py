@@ -77,3 +77,12 @@ class UserListView(generics.ListAPIView):
     def get_queryset(self):
         # Filter users by role 'user'
         return self.queryset.filter(role='user')
+class UserRoleView(APIView):
+    """View to fetch the role of the authenticated user."""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "is_admin": user.role == "admin"  # Assuming `role` is a field in your User model
+        })

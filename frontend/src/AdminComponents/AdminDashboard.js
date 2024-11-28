@@ -65,15 +65,43 @@ function AdminDashboard() {
         <div className="logo">
           <h2>Gosa</h2>
         </div>
-        <nav className="menu">
-          <Link to="/admin/Dashboard" className="menu-item">Dashboard</Link>
-          <Link to="/admin/registration" className="menu-item">Register</Link>
-          <Link to="/admin/submitted-risk" className="menu-item">Submitted Risk</Link>
-          <Link to="/admin/notifications" className="menu-item">Notifications</Link>
-          <Link to="/admin/reports" className="menu-item">Reports</Link>
-          <Link to="/admin/profile" className="menu-item">Update Profile</Link>
-          <button onClick={handleLogout} className="logout-btn">Log out</button>
-        </nav>
+        <ul className="menu">
+          <li>
+            <Link to="/admin" className="active">
+              <i className="fas fa-tachometer-alt" /> <span>Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/registration">
+              <i className="fas fa-user-plus" /> <span>Register</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/risks">
+              <i className="fas fa-exclamation-circle" /> <span>Submitted Risk</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/notifications">
+              <i className="fas fa-bell" /> <span>Notifications</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/reports">
+              <i className="fas fa-chart-line" /> <span>Reports</span>
+            </Link>
+          </li>
+          <li>
+            <a href="/admin/profile">
+              <i className="fas fa-user-plus" /> <span>Update Profile</span>
+            </a>
+          </li>
+          <li className="logout">
+            <button onClick={handleLogout} className="logout-btn">
+              <i className="fas fa-sign-out-alt" /> <span>Log out</span>
+            </button>
+          </li>
+        </ul>
       </div>
 
       <div className="main-content">

@@ -6,6 +6,7 @@ from .models import Family
 from .serializers import FamilySerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+
 class FamilyListView(generics.ListAPIView):
     """Retrieve a list of family members for the authenticated user."""
     serializer_class = FamilySerializer
@@ -39,7 +40,7 @@ class FamilyUpdateView(generics.UpdateAPIView):
     serializer_class = FamilySerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-
+    
     def get_queryset(self):
         return Family.objects.filter(user=self.request.user)  # Filter by user
 

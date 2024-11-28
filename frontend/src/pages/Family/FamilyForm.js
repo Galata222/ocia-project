@@ -14,6 +14,7 @@ const FamilyForm = ({ family, onClose, onUpdate }) => {
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     if (family) {
       setFirstName(family.firstName);

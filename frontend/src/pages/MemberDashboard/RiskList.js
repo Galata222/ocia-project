@@ -1,51 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import api from '../../utils/api';
+import SubmitRisk from './SubmitRisk';
 
 const RiskList = () => {
     const [risks, setRisks] = useState([]);
-    const history = useNavigate();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [editingRisk, setEditingRisk] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
+        const fetchRisks = async () => {
+            try {
+                // Check if the user is an admin
+                const roleResponse = await api.get('/user-role/');
+                setIsAdmin(roleResponse.data.is_admin);
+                //console.log(isAdmin);
+                // Fetch risks based on the user's role
+                const endpoint = roleResponse.data.is_admin ? '/risks/admin/' : '/risks/';
+                const response = await api.get(endpoint);
+                setRisks(response.data);
+            } catch (err) {
+                const errorMessage = err.response?.data?.detail || 'Failed to fetch risks.';
+                setError(errorMessage);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchRisks();
     }, []);
 
-    const fetchRisks = async () => {
-        try {
-            const response = await axios.get('/api/risks/');
-            setRisks(response.data);
-        } catch (error) {
-            console.error("Error fetching risks:", error);
+    const handleEdit = (risk) => {
+        setEditingRisk(risk);
+    };
+
+    const handleDelete = async (risk_id) => {
+        if (window.confirm('Are you sure you want to delete this risk?')) {
+            try {
+                await api.delete(`/risks/${risk_id}/delete/`);
+                setRisks(risks.filter((risk) => risk.risk_id !== risk_id));
+            } catch (err) {
+                const errorMessage = err.response?.data?.detail || 'An error occurred while deleting the risk.';
+                setError(errorMessage);
+            }
         }
     };
 
-    const handleDelete = async (riskId) => {
-        try {
-            await axios.delete(`/api/risks/${riskId}/`);
-            setRisks(risks.filter((risk) => risk.risk_id !== riskId));
-            alert("Risk deleted successfully.");
-        } catch (error) {
-            console.error("Error deleting risk:", error);
-        }
-    };
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div className="alert alert-danger">{error}</div>;
+    }
+
+    if (risks.length === 0) {
+        return <div>No risks found.</div>;
+    }
 
     return (
         <div>
-            <h1>All Risks</h1>
+            <h2>Risk List</h2>
             <ul>
                 {risks.map((risk) => (
                     <li key={risk.risk_id}>
-                        <strong>Type:</strong> {risk.risk_type}<br />
-                        <strong>Description:</strong> {risk.risk_description}<br />
-                        <strong>Date:</strong> {risk.risk_date}<br />
-                        <strong>Status:</strong> {risk.status}
-                        <br />
-                        <button onClick={() => history.push(`/risks/${risk.risk_id}`)}>View</button>
-                        <button onClick={() => history.push(`/risks/edit/${risk.risk_id}`)}>Update</button>
-                        <button onClick={() => handleDelete(risk.risk_id)}>Delete</button>
+                        {risk.risk_type}: {risk.risk_description}
+                        <button onClick={() => handleEdit(risk)} className="btn btn-secondary ms-2">
+                            Edit
+                        </button>
+                        <button onClick={() => handleDelete(risk.risk_id)} className="btn btn-danger ms-2">
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>
+            {editingRisk && (
+                <SubmitRisk risk={editingRisk} onClose={() => setEditingRisk(null)} onUpdate={setRisks} />
+            )}
         </div>
     );
 };
