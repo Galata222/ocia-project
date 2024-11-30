@@ -50,4 +50,46 @@ export const fetchUserRole = async () => {
   }
 };
 
+/**
+ * Fetch notifications for the authenticated user.
+ * @returns {Promise} A promise that resolves to the list of notifications.
+ */
+export const fetchNotifications = async () => {
+  try {
+    const response = await api.get('/notifications/');
+    return response.data; // Returns an array of notifications
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    throw error;
+  }
+};
+
+/**
+ * Mark a notification as read by its ID.
+ * @param {number} notificationId - The ID of the notification to mark as read.
+ * @returns {Promise} A promise that resolves when the operation is successful.
+ */
+export const markNotificationAsRead = async (notificationId) => {
+  try {
+    await api.put(`/notifications/mark-read/${notificationId}/`);
+  } catch (error) {
+    console.error('Error marking notification as read:', error);
+    throw error;
+  }
+};
+
+/**
+ * Send a notification to all users or a specific user.
+ * @param {object} data - The notification data (e.g., message, notification_type, user_id).
+ * @returns {Promise} A promise that resolves when the notification is sent successfully.
+ */
+export const sendNotification = async (data) => {
+  try {
+    await api.post('/notifications/send/', data);
+  } catch (error) {
+    console.error('Error sending notification:', error);
+    throw error;
+  }
+};
+
 export default api;

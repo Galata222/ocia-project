@@ -35,7 +35,8 @@ import Volunteer from './components/Volunteer';
 import OtherService from './components/OtherService';
 import FREEService from './components/FreeService';
 import '../src/style/customfont.css'
-
+import NotificationsRead from './NotificationsComponents/NotificationsRead';
+import NotificationsWrite from './NotificationsComponents/NotificationsWrite';
 function App() {
     return (
         <Router>
@@ -77,8 +78,10 @@ function AppContent() {
                     <Route path="families" element={<FamilyList />} />
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />
-                    <Route path="notifications" element={<Notification />} />
+                    {/* <Route path="notifications" element={<Notification />} /> */}
                     <Route path="history" element={<HistoryUser />} />
+                    <Route path='notifications/' element ={<NotificationsRead/>} />
+                    
                 </Route>
                 
                 {/* Admin Dashboard Routes */}
@@ -93,6 +96,9 @@ function AppContent() {
                     <Route path="history" element={<History />} />
                     <Route path="reports" element={<Reports />} />
                     <Route path="profile" element={<Profile />} />
+                    <Route path='notifications/' element={<NotificationsRead />} />
+                    <Route path='notifications/<int:pk>/mark-as-read/' element={<NotificationsRead/>} />
+                    <Route path='notifications/send' element={<NotificationsWrite />} />
                 </Route>
             </Routes>
             {showNavAndFooter && <Footer />}

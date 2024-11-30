@@ -10,7 +10,7 @@ function AdminDashboard() {
   const [fullscreen, setFullscreen] = useState(false);
   const [user, setUser] = useState(null); // State to store user info
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // Function to fetch user data from localStorage
     const fetchUserData = () => {
@@ -94,8 +94,8 @@ function AdminDashboard() {
             </Link>
           </li>
           <li>
-            <Link to="/admin/notifications">
-              <i className="fas fa-bell" /> <span>Notifications</span>
+            <Link to="/admin/notifications/send">
+              <i className="fas fa-bell" /> <span>Notifications</span> 
             </Link>
           </li>
           <li>

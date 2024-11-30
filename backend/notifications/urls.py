@@ -1,7 +1,10 @@
 from django.urls import path
-from .views import NotificationListCreateView, NotificationDetailView
+from .views import NotificationListView, MarkNotificationAsReadView, NotificationSendView
 
 urlpatterns = [
-    path('notifications/', NotificationListCreateView.as_view(), name='notification-list-create'),
-    path('notifications/<int:pk>/', NotificationDetailView.as_view(), name='notification-detail'),
+    # URL for fetching the list of notifications
+    path('notifications/', NotificationListView.as_view(), name='notification-list'),
+    path('notifications/send/', NotificationSendView.as_view(), name='send-notification'),
+    # URL for marking a notification as read (requires the notification ID)
+    path('notifications/<int:pk>/mark-as-read/', MarkNotificationAsReadView.as_view(), name='mark-notification-as-read'),
 ]
