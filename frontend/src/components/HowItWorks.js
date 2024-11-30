@@ -1,5 +1,7 @@
 import React from 'react';
 import '../style/HowItWorks.css';
+import "../style/customblue.css"
+
 
 const HowItWorks = () => {
     const steps = [
@@ -14,7 +16,7 @@ const HowItWorks = () => {
     ];
 
     return (
-        <div className="how-it-works bg-custom-dark text-light">
+        <div className="how-it-works  text-light custom-blue">
             <h2>How It Works</h2>
             <ul>
                 {steps.map((step, index) => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/donate.css'
 import "../style/customblue.css"
-
+import "../style/darkblue.css"
 const Donate = ({ paymentLink }) => {
   const handleDonateClick = () => {
     window.open(paymentLink, '_blank'); 
@@ -10,7 +10,7 @@ const Donate = ({ paymentLink }) => {
   return (
     <div className="container-fluid my-0.5 custom-blue text-white p-4"> 
       <section className="text-center  mb-5">
-        <h1 className="display-4">Donate to Make a Difference</h1>
+        <h2 className="display-4">Donate to Make a Difference</h2>
         <p className="lead">
           Your support is crucial for us to continue our mission. By donating, you help GOSA reach more people and make a positive impact in our community.
         </p>
@@ -29,10 +29,10 @@ const Donate = ({ paymentLink }) => {
             <div className="col-md-4 mb-4  " key={index}>
               <div className="flip-card">
                 <div className="flip-card-inner">
-                  <div className="flip-card-front bg-custom-dark">
+                  <div className="flip-card-front dark-blue">
                     <h3>{item}</h3>
                   </div>
-                  <div className="flip-card-back bg-custom-dark">
+                  <div className="flip-card-back dark-blue">
                     <p>Learn more about how your donation helps!</p>
                   </div>
                 </div>

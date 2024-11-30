@@ -1,0 +1,38 @@
+.numbers {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .number {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  .number .counter {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.9em;
+    margin: 6px 0;
+  }
+  
+  .number span {
+    font-size: 1.2em;
+    display: block;
+  }
+  
+  .counter-users {
+    color: #4CAF50; 
+  }
+  
+  .counter-admins {
+    color: #2196F3; 
+  }
+  
+  .counter-submitted {
+ 
+    color: #F44336; 
+  }
+  
+  .counter-approved {
+    color: #FF9800; 
+  }

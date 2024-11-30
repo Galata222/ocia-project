@@ -1,0 +1,49 @@
+/* Common Chart Styles */
+.chartBox {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Default padding */
+    margin: 2px 0;
+    text-align: center;
+}
+
+.chartTitle {
+    font-size: 1rem; /* Title size for totals */
+    color: #333;
+    margin: 10px 0; /* Spacing above and below */
+    font-weight: bold;
+}
+
+.viewAllLink {
+    display: inline-block;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.viewAllLink:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.chartInfo {
+    margin-top: 20px; /* Margin above the chart */
+}
+
+/* Optional: Specific classes for counts if needed */
+.userCount,
+.submittedRiskCount,
+.incomeTotal {
+    font-size: 1rem; /* Font size for counts */
+    color: #333;
+    margin: 10px 0; /* Spacing above and below */
+    font-weight: bold;
+}
+
+/* Special case for income total */
+.incomeTotal {
+    font-size: 1.8rem; /* Larger font for total income */
+}
