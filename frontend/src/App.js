@@ -38,7 +38,7 @@ import NotificationsRead from './NotificationsComponents/NotificationsRead';
 import NotificationsWrite from './NotificationsComponents/NotificationsWrite';
 import '../src/style/customfont.css';
 import Dashboard from './AdminComponents/Dashboard';
-
+import UserDashboard from './Profilecomponents/UserDashboard';
 function App() {
     return (
         <Router>
@@ -72,6 +72,8 @@ function AppContent() {
 
                 {/* Profile Routes */}
                 <Route path="/ProfileHome" element={<ProfileHome />}>
+                <Route index element={<Navigate to="/ProfileHome/UserOverviewDashboard" />} />
+                <Route path="UserOverviewDashboard" element={<UserDashboard/>}/>
                     <Route path="profile" element={<Profile />} />
                     <Route path="submit-risk" element={<SubmitRisk />} />
                     <Route path="risks/edit/:id" element={<RiskList />} />
@@ -80,7 +82,6 @@ function AppContent() {
                     <Route path="families" element={<FamilyList />} />
                     <Route path="families/new" element={<FamilyForm />} />
                     <Route path="families/edit/:id" element={<FamilyForm />} />
-                    {/* <Route path="notifications" element={<Notification />} /> */}
                     <Route path="history" element={<HistoryUser />} />
                     <Route path='notifications/' element ={<NotificationsRead/>} />
                     

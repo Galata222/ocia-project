@@ -1,0 +1,60 @@
+.historyoverview_container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .historyoverview_title {
+    text-align: center;
+    color: #333;
+  }
+  
+  .historyoverview_summary {
+    margin-top: 15px;
+  }
+  
+  .historyoverview_item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .historyoverview_label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .historyoverview_value {
+    color: #007bff; /* Blue color for emphasis */
+    font-size: 1.2em; /* Slightly larger font size */
+  }
+  
+  .historyoverview_list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+  
+  .historyoverview_event {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .historyoverview_event:last-child {
+    border-bottom: none;
+  }
+  
+  .historyoverview_event_date {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .historyoverview_event_description {
+    color: #555;
+  }
