@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import  gosa from'./../Images/gosa2.png'
 import '../style/navbar.css';
 import '../style/darkblue.css';
 function Nav() {
@@ -33,9 +34,10 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-md dark-blue">
       <div className="container">
-        <Link to="/" className="logo custom-text">
+        <Link to="/" className=" custom-text">
           <i className="ion-social-buffer" />
-          <span>GOSA</span>
+          <span> <h1>GOSA</h1></span>
+          {/* <span>  <img src={gosa} alt='gosa'/>  </span> */}
         </Link>
         <button
           className="navbar-toggler"

@@ -1,6 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/customblue.css"; 
+import "../style/volunter.css"; 
+
+
 const VolunteerPage = () => {
   return (
     <div className="container-fluid custom-blue text-white p-5">
@@ -10,13 +13,13 @@ const VolunteerPage = () => {
       </p>
       <div className="volunteer_container d-flex justify-content-between mt-4">
         <div className="why-donate">
-          <h2>Why you join us as volunteer ?</h2>
+          <h2>Why you join us as a volunteer?</h2>
           <p>Your contributions help us provide essential services and support to those in need. Together, we can create lasting change in our community.</p>
           <ul className="donation-list">
-            <li>Support one another in time of need</li>
-            <li>Provide educational resources for those in need</li>
-            <li>Empower individuals through skill training.</li>
-            <li>Support new comers</li>
+            <li className='checked'>Support one another in times of need</li>
+            <li className='checked'>Provide educational resources for those in need</li>
+            <li className='checked'>Empower individuals through skill training</li>
+            <li className='checked'>Support newcomers</li>
           </ul>
         </div>
         <div className="volunteer-form">

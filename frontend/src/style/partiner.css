@@ -1,0 +1,33 @@
+.clients {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    padding: 20px 0;
+  }
+  
+  .brand-item {
+    width: 100%; /* Fixed width for each image container */
+    height: auto; /* Fixed height for each image container */
+    margin-right: 10px;
+    overflow: hidden; /* Hide overflow to maintain fixed size */
+    transition: transform 0.2s;
+  }
+  
+  .brand-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+    border-radius: 3px;
+  }
+  
+  .brand-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .clients::-webkit-scrollbar {
+    display: none;
+  }
+  .clients {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }

@@ -31,16 +31,19 @@ function Footer() {
                 <Link to="/" className="nav-link text-light">Home</Link>
               </li>
               <li className="nav-item">
-                <Link to="/About" className="nav-link text-light">About</Link>
+                <Link to="/about" className="nav-link text-light">About</Link>
               </li>
               <li className="nav-item">
-                <Link to="/Service" className="nav-link text-light">Services</Link>
+                <Link to="/free-service" className="nav-link text-light"> Free Services</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/other-service" className="nav-link text-light"> Other Services</Link>
               </li>
               <li className="nav-item">
                 <Link to="/contact" className="nav-link text-light">Contact Us</Link>
               </li>
               <li className="nav-item">
-                <Link to="/Profile" className="nav-link text-light">My Account</Link>
+                <Link to="/login" className="nav-link text-light">My Account</Link>
               </li>
             </ul>
           </div>

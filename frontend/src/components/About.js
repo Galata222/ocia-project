@@ -2,7 +2,9 @@ import React from 'react';
 import "../style/styles.css";
 import "../style/animate.css";
 import "../style/mklib.css";
-import profile1 from "../Images/founder/profile.jpg";
+import profile1 from "../Images/founder/firaol.jpg";
+import profile2 from "../Images/founder/galata.jpg";
+import profile3 from "../Images/founder/wabi.jpg";
 import "../style/customblue.css"
 
 function About() {
@@ -62,7 +64,7 @@ function About() {
               <div className="row team">
                 <div className="col-md-4">
                   <div className="team-member text-center animated fadeInDown wow" data-wow-delay=".1s">
-                    <img src={profile1} alt="team-member" className="img-fluid" />
+                    <img src={profile3} alt="team-member" className="img-fluid" />
                     <h4 className="mt-4 pt-1">Wabi Mulata</h4>
                     <p className="mb-2">Founder</p>
                     <ul className="list-inline social-list">
@@ -74,7 +76,7 @@ function About() {
                 </div>
                 <div className="col-md-4">
                   <div className="team-member text-center animated fadeInDown wow" data-wow-delay=".3s">
-                    <img src={profile1} alt="team-member" className="img-fluid" />
+                    <img src={profile2} alt="team-member" className="img-fluid" />
                     <h4 className="mt-4 pt-1">Galata Waqwaya</h4>
                     <p className="mb-2">Backend Developer</p>
                     <ul className="list-inline social-list">

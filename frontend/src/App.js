@@ -39,6 +39,7 @@ import NotificationsWrite from './NotificationsComponents/NotificationsWrite';
 import '../src/style/customfont.css';
 import Dashboard from './AdminComponents/Dashboard';
 import UserDashboard from './Profilecomponents/UserDashboard';
+import ServiceRequestForm from './components/ServiceRequestForm';
 function App() {
     return (
         <Router>
@@ -49,7 +50,7 @@ function App() {
 
 function AppContent() {
     const location = useLocation();
-    const showNavAndFooter = ['/', '/about', '/contact', '/terms', '/notifications', '/HowItWorks', '/ForgotPassword', '/Service', '/other-service', '/free-service', '/login', '/termsandcondition', '/donate', '/volunteer'].includes(location.pathname);
+    const showNavAndFooter = ['/', '/about', '/contact', '/terms', '/notifications', '/HowItWorks', '/ForgotPassword', '/Service', '/other-service','/request-service', '/free-service', '/login', '/termsandcondition', '/donate', '/volunteer'].includes(location.pathname);
 
     return (
         <>
@@ -67,6 +68,7 @@ function AppContent() {
                 <Route path="/other-service" element={<OtherService />} />
                 <Route path="/support" element={<Support />} />
                 <Route path="/volunteer" element={<Volunteer />} />
+                <Route path="/request-service" element={<ServiceRequestForm />} />
                 <Route path="/free-service" element={<FREEService />} />
                 <Route path="/Donate" element={<Donate paymentLink="https://donate.stripe.com/test_eVadSz7Vj1WKcs85kk" />} />
 

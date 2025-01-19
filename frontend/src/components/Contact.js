@@ -13,7 +13,7 @@ function Contact() {
         <div className="col-sm-12 text-center">
           <div className="home-wrapper">
             <h1 className="text-white fw-bold f-36 animated fadeInDown wow" data-wow-delay=".1s">Contact Us</h1>
-            <h6 className="text-white animated fadeInDown wow" data-wow-delay=".3s">Simply dummy text of the printing and type</h6>
+            <h6 className="text-white animated fadeInDown wow" data-wow-delay=".3s">For any questions you have don't hesitate to contact us</h6>
           </div>
         </div>
       </div>
@@ -56,7 +56,6 @@ function Contact() {
               </div>
               <div className="row justify-content-center animated fadeInDown wow" data-wow-delay=".9s">
                 <div className="col-lg-8 text-center">
-                  <p className="text-center con_sub_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren.</p>
                   <input type="submit" id="submit" name="send" className="submitBnt btn btn-sm btn-primary" defaultValue="Submit" />
                 </div>
               </div>

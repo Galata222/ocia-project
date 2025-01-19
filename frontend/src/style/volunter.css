@@ -1,0 +1,74 @@
+.donation-list {
+    list-style: none; /* Remove default list styling */
+    padding: 0;
+  }
+  
+  .donation-list li {
+    position: relative;
+    padding-left: 35px; /* Space for the checkmark */
+    margin-bottom: 10px; /* Space between list items */
+  }
+  
+  .donation-list li::before {
+    content: ''; /* Empty content for the circle */
+    position: absolute;
+    left: 0;
+    width: 24px; /* Width of the circle */
+    height: 24px; /* Height of the circle */
+    border-radius: 50%; /* Make it a circle */
+    border: 2px solid white; /* White border for the circle */
+    background-color: transparent; /* Transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .donation-list li.checked::before {
+    background-color: white; /* Fill the circle when checked */
+  }
+  
+  .donation-list li.checked::after {
+    content: '✔'; /* Checkmark symbol */
+    color: green; /* Color of the checkmark */
+    font-size: 16px; /* Size of the checkmark */
+    position: absolute; /* Position it inside the circle */
+    left: 4px; /* Adjust left position */
+    top: 2px; /* Adjust top position */
+  }
+  
+  .custom-input {
+    background: transparent; /* No background */
+    border: none; /* Remove default border */
+    border-bottom: 2px solid transparent; /* Bottom border, initially transparent */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+    width: 100%; /* Full width */
+    padding: 10px 0; /* Vertical padding */
+  }
+  
+  .custom-input:focus {
+    outline: none; /* Remove outline */
+    border-bottom: 2px solid #007bff; /* Bottom border color on focus */
+  }
+  
+  .custom-input:not(:placeholder-shown) {
+    border-bottom: 2px solid #007bff; /* Show bottom border when input is filled */
+  }
+  
+  .volunteer_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+  }
+  
+  .why-donate, .volunteer-form {
+    flex: 1; /* Equal width for both sections */
+    padding: 20px; /* Add padding for aesthetics */
+  }
+  
+  .volunteer-form {
+    margin-left: 20px; /* Space between sections */
+  }
+  
+  h2 {
+    font-size: 1.5rem; /* Increase heading size */
+  }
